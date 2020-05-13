@@ -1,4 +1,4 @@
-package kanban
+package task
 
 type Task struct {
 	owner string
