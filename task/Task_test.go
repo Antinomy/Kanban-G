@@ -5,7 +5,7 @@ import (
 )
 
 
-func test(t *testing.T) {
+func TestTask(t *testing.T) {
     var  task1 Task
 
     task1.owner = "AY"
@@ -15,4 +15,11 @@ func test(t *testing.T) {
     task1.tittle = "WriteKanbanCode.md"
 
     t.Log(task1)
+
+ 
+    if task1.owner != "AY" {
+        t.Errorf("Failed")
+    }
+ 
+  
 }
