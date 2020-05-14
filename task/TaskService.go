@@ -47,6 +47,14 @@ func (t *FileWay) changeTask(changingTask ChangingTask) Task {
     if(changingTask.changeItem == "Owner"){
         result.owner = changingTask.changeContent
     }
+
+    if(changingTask.changeItem == "priority"){
+        result.priority = changingTask.changeContent
+    }
+
+    if(changingTask.changeItem == "deadline"){
+        result.deadline = changingTask.changeContent
+    }
    
     return result
 }
