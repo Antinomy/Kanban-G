@@ -1,30 +1,35 @@
-
 package task
 
 import (
-    "strings"
+	"strings"
 )
 
-// interface task service
-type TaskService interface{
-    toTask() Task
+//taskService interface e
+type taskService interface {
+	toTask() Task
+	isATask() bool
 }
 
+func toTask(fileName string) (result Task) {
+	var arrs = strings.Split(fileName, "-")
 
-// func toTask (i TaskService){
-//     i.toTask()
-// }
+	result.owner = arrs[0]
+	result.priority = arrs[1]
+	result.project = arrs[2]
+	result.deadline = arrs[3]
+	result.tittle = arrs[4]
 
-func toTask(fileName string)(result Task){
-  
-    var arrs = strings.Split(fileName,"-")
+	return result
+}
 
-    result.owner = arrs[0]
-    result.priority = arrs[1]
-    result.project = arrs[2]
-    result.deadline = arrs[3]
-    result.tittle = arrs[4]
+func isATask(fileName string) (result bool) {
+	result = false
 
+	var arrs = strings.Split(fileName, "-")
 
-	return result;
-} 
+	if len(arrs) == 5 {
+		result = true
+	}
+
+	return result
+}
