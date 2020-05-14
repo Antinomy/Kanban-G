@@ -38,7 +38,7 @@ func TestChangeTaskOwner(t *testing.T) {
 	// change owner
 	changingTask := ChangingTask{
 		origin:        originTask,
-		changeItem:    "Owner",
+		changeItem:    OWNER,
 		changeContent: "WGL",
 	}
 	var changedTask Task = taskService.changeTask(changingTask)
@@ -58,7 +58,7 @@ func TestChangeTaskpriority(t *testing.T) {
 	// change priority
 	var changingTask = ChangingTask{
 		origin:        originTask,
-		changeItem:    "priority",
+		changeItem:    PRIORITY,
 		changeContent: "H",
 	}
 	var changedTask = taskService.changeTask(changingTask)
@@ -77,7 +77,7 @@ func TestChangeTaskDeadline(t *testing.T) {
 	// change deadline
 	var changingTask = ChangingTask{
 		origin:        originTask,
-		changeItem:    "deadline",
+		changeItem:    DEADLINE,
 		changeContent: "20200514",
 	}
 	var changedTask = taskService.changeTask(changingTask)
