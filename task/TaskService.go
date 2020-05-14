@@ -6,30 +6,30 @@ import (
 
 //taskService interface e
 type taskService interface {
-	toTask() Task
-	isATask() bool
+    toTask() Task
+    isATask() bool
 }
 
-func toTask(fileName string) (result Task) {
-	var arrs = strings.Split(fileName, "-")
+func toTask(taskName string) (result Task) {
+    var arrs = strings.Split(taskName, "-")
 
-	result.owner = arrs[0]
-	result.priority = arrs[1]
-	result.project = arrs[2]
-	result.deadline = arrs[3]
-	result.tittle = arrs[4]
+    result.owner = arrs[0]
+    result.priority = arrs[1]
+    result.project = arrs[2]
+    result.deadline = arrs[3]
+    result.tittle = arrs[4]
 
-	return result
+    return result
 }
 
-func isATask(fileName string) (result bool) {
-	result = false
+func isATask(taskName string) (result bool) {
+    result = false
 
-	var arrs = strings.Split(fileName, "-")
+    var arrs = strings.Split(taskName, "-")
 
-	if len(arrs) == 5 {
-		result = true
-	}
+    if len(arrs) == 5 {
+        result = true
+    }
 
-	return result
+    return result
 }
