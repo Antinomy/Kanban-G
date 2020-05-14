@@ -4,15 +4,20 @@ import (
 	"strings"
 )
 
-//taskService interface e
-type taskService interface {
-    toTask() Task
-    isATask() bool
+//TaskService interface e
+type TaskService interface {
+    createTask(taskName string) Task
+    isATask(taskName string) bool
+    changeTask(changingTask ChangingTask) Task
 }
 
-func toTask(taskName string) (result Task) {
-    var arrs = strings.Split(taskName, "-")
+ //FileWay desc
+ type FileWay struct{
+}
 
+func (t *FileWay)createTask(taskName string) Task {
+    var arrs = strings.Split(taskName, "-")
+    var result Task
     result.owner = arrs[0]
     result.priority = arrs[1]
     result.project = arrs[2]
@@ -22,8 +27,8 @@ func toTask(taskName string) (result Task) {
     return result
 }
 
-func isATask(taskName string) (result bool) {
-    result = false
+func (t *FileWay) isATask(taskName string) bool {
+    var result bool = false
 
     var arrs = strings.Split(taskName, "-")
 
@@ -31,5 +36,17 @@ func isATask(taskName string) (result bool) {
         result = true
     }
 
+    return result
+}
+
+func (t *FileWay) changeTask(changingTask ChangingTask) Task {
+    var origin = changingTask.origin;
+
+    var result Task =origin;
+
+    if(changingTask.changeItem == "Owner"){
+        result.owner = changingTask.changeContent
+    }
+   
     return result
 }

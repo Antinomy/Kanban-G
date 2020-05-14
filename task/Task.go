@@ -1,5 +1,7 @@
 package task
 
+
+
 // Task entiy 
 type Task struct {
     owner string
@@ -8,3 +10,10 @@ type Task struct {
     deadline string
     tittle string
  }
+
+//ChangingTask desc
+type ChangingTask struct{
+    origin Task 
+    changeItem string
+    changeContent string
+}
