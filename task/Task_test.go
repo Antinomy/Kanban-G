@@ -58,7 +58,7 @@ func TestTaskItemShortCut(t *testing.T) {
 	item = getTaskItem("own")
 	assertOwner(item, t)
 
-	item = getTaskItem("por")
+	item = getTaskItem("prI")
 	assertPriority(item, t)
 
 	item = getTaskItem("pi")
