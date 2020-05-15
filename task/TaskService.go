@@ -8,7 +8,7 @@ import (
 type TaskService interface {
 	createTask(taskName string) Task
 	isATask(taskName string) bool
-	changeTask(changingTask ChangingTask) Task
+	changeTask(changingTask ToChangeTask) Task
 }
 
 //FileWay desc
@@ -39,7 +39,7 @@ func (t *FileWay) isATask(taskName string) bool {
 	return result
 }
 
-func (t *FileWay) changeTask(changingTask ChangingTask) Task {
+func (t *FileWay) changeTask(changingTask ToChangeTask) Task {
 	var origin = changingTask.origin
 
 	var result Task = origin

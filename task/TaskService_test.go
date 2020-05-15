@@ -36,7 +36,7 @@ func TestChangeTaskOwner(t *testing.T) {
 	var originTask Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	// change owner
-	changingTask := ChangingTask{
+	changingTask := ToChangeTask{
 		origin:        originTask,
 		changeItem:    OWNER,
 		changeContent: "WGL",
@@ -56,7 +56,7 @@ func TestChangeTaskpriority(t *testing.T) {
 	var originTask Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	// change priority
-	var changingTask = ChangingTask{
+	var changingTask = ToChangeTask{
 		origin:        originTask,
 		changeItem:    PRIORITY,
 		changeContent: "H",
@@ -75,7 +75,7 @@ func TestChangeTaskDeadline(t *testing.T) {
 	var originTask Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	// change deadline
-	var changingTask = ChangingTask{
+	var changingTask = ToChangeTask{
 		origin:        originTask,
 		changeItem:    DEADLINE,
 		changeContent: "20200514",
