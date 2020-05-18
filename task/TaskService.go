@@ -23,6 +23,7 @@ func (t *FileWay) createTask(taskName string) Task {
 	result.project = arrs[2]
 	result.deadline = arrs[3]
 	result.tittle = arrs[4]
+	result.fullName = taskName
 
 	return result
 }

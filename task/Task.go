@@ -4,6 +4,7 @@ import "strings"
 
 // Task entiy
 type Task struct {
+	fullName string
 	owner    string
 	priority string
 	project  string

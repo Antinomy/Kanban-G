@@ -12,6 +12,11 @@ func TestCreateTask(t *testing.T) {
 		t.Log(task1)
 		t.Errorf("Failed")
 	}
+
+	if task1.fullName != "AY-M-ProjectA-20200512-WriteKanbanCode.md" {
+		t.Log(task1)
+		t.Errorf("Failed")
+	}
 }
 
 func TestIsATask(t *testing.T) {
