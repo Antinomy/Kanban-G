@@ -6,16 +6,16 @@ import (
 
 //TaskService interface e
 type TaskService interface {
-	createTask(taskName string) Task
-	isATask(taskName string) bool
-	changeTask(changingTask ToChangeTask) Task
+	CreateTask(taskName string) Task
+	IsATask(taskName string) bool
+	ChangeTask(changingTask ToChangeTask) Task
 }
 
 //FileWay desc
 type FileWay struct {
 }
 
-func (t *FileWay) createTask(taskName string) Task {
+func (t *FileWay) CreateTask(taskName string) Task {
 	var arrs = strings.Split(taskName, "-")
 	var result Task
 	result.owner = arrs[0]
@@ -28,7 +28,7 @@ func (t *FileWay) createTask(taskName string) Task {
 	return result
 }
 
-func (t *FileWay) isATask(taskName string) bool {
+func (t *FileWay) IsATask(taskName string) bool {
 	var result bool = false
 
 	var arrs = strings.Split(taskName, "-")
@@ -40,7 +40,7 @@ func (t *FileWay) isATask(taskName string) bool {
 	return result
 }
 
-func (t *FileWay) changeTask(changingTask ToChangeTask) Task {
+func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 	var origin = changingTask.origin
 
 	var result Task = origin

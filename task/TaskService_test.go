@@ -6,7 +6,7 @@ import (
 
 func TestCreateTask(t *testing.T) {
 	var taskService TaskService = new(FileWay)
-	var task1 Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
+	var task1 Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	if task1.project != "ProjectA" {
 		t.Log(task1)
@@ -21,14 +21,14 @@ func TestCreateTask(t *testing.T) {
 
 func TestIsATask(t *testing.T) {
 	var taskService TaskService = new(FileWay)
-	var task1 bool = taskService.isATask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
+	var task1 bool = taskService.IsATask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	if task1 == false {
 		t.Log(task1)
 		t.Errorf("Failed")
 	}
 
-	var task2 = taskService.isATask("whatever")
+	var task2 = taskService.IsATask("whatever")
 	if task2 == true {
 		t.Log(task2)
 		t.Errorf("Failed")
@@ -38,7 +38,7 @@ func TestIsATask(t *testing.T) {
 
 func TestChangeTaskOwner(t *testing.T) {
 	var taskService TaskService = new(FileWay)
-	var originTask Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
+	var originTask Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	// change owner
 	changingTask := ToChangeTask{
@@ -46,7 +46,7 @@ func TestChangeTaskOwner(t *testing.T) {
 		changeItem:    OWNER,
 		changeContent: "WGL",
 	}
-	var changedTask Task = taskService.changeTask(changingTask)
+	var changedTask Task = taskService.ChangeTask(changingTask)
 
 	if changedTask.owner != "WGL" {
 		t.Log(changedTask)
@@ -58,7 +58,7 @@ func TestChangeTaskOwner(t *testing.T) {
 func TestChangeTaskpriority(t *testing.T) {
 	var taskService TaskService = new(FileWay)
 
-	var originTask Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
+	var originTask Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	// change priority
 	var changingTask = ToChangeTask{
@@ -66,7 +66,7 @@ func TestChangeTaskpriority(t *testing.T) {
 		changeItem:    PRIORITY,
 		changeContent: "H",
 	}
-	var changedTask = taskService.changeTask(changingTask)
+	var changedTask = taskService.ChangeTask(changingTask)
 
 	if changedTask.priority != "H" {
 		t.Log(changedTask)
@@ -77,7 +77,7 @@ func TestChangeTaskpriority(t *testing.T) {
 
 func TestChangeTaskDeadline(t *testing.T) {
 	var taskService TaskService = new(FileWay)
-	var originTask Task = taskService.createTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
+	var originTask Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
 	// change deadline
 	var changingTask = ToChangeTask{
@@ -85,7 +85,7 @@ func TestChangeTaskDeadline(t *testing.T) {
 		changeItem:    DEADLINE,
 		changeContent: "20200514",
 	}
-	var changedTask = taskService.changeTask(changingTask)
+	var changedTask = taskService.ChangeTask(changingTask)
 
 	if changedTask.deadline != "20200514" {
 		t.Log(changedTask)
