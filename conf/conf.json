@@ -1,0 +1,21 @@
+{
+    "BanSize": 4,
+    "BanConfigs": [
+        {
+            "Name": "todo",
+            "Folder": "01-todo"
+        },
+        {
+            "Name": "doing",
+            "Folder": "02-doing"
+        },
+        {
+            "Name": "hold",
+            "Folder": "03-hold"
+        },
+        {
+            "Name": "end",
+            "Folder": "04-end"
+        }
+    ]
+}

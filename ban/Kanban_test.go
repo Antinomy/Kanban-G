@@ -5,19 +5,6 @@ import (
 	"testing"
 )
 
-func TestReadDir(t *testing.T) {
-
-	var folderPath = ".././unittest/myTasks/02-doing"
-	var todoList []string = readFileList(folderPath)
-
-	var taskNum = len(todoList)
-
-	if taskNum != 3 {
-		t.Log(todoList)
-		t.Errorf("Failed")
-	}
-}
-
 func TestReadCorrectTask(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks/02-doing"

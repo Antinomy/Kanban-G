@@ -1,8 +1,10 @@
 package ban
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	kc "kanban/conf"
 	"log"
 )
 
@@ -20,6 +22,25 @@ func readFileList(folderPath string) []string {
 	for index, f := range files {
 		fmt.Println(f.Name())
 		result[index] = f.Name()
+	}
+
+	return result
+}
+
+func readJsonConfig(filePath string) kc.Jconf {
+
+	data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// json data
+	var result kc.Jconf
+
+	// unmarshall it
+	err = json.Unmarshal(data, &result)
+	if err != nil {
+		log.Fatal("error:", err)
 	}
 
 	return result
