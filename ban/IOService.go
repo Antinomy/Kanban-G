@@ -16,11 +16,11 @@ func readFileList(folderPath string) []string {
 	}
 
 	var filesLen = len(files)
-	fmt.Println(filesLen)
+	fmt.Println(folderPath, "total", filesLen)
 	var result []string = make([]string, filesLen)
 
 	for index, f := range files {
-		fmt.Println(f.Name())
+		fmt.Println("FileName", f.Name())
 		result[index] = f.Name()
 	}
 

@@ -18,3 +18,15 @@ func TestReadCorrectTask(t *testing.T) {
 		t.Errorf("Failed")
 	}
 }
+
+func TestBuildKanban(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+
+	var kanban Kanban = buildKanban(folderPath)
+
+	if len(kanban.bans) != 4 {
+		t.Log(kanban)
+		t.Errorf("Failed")
+	}
+}

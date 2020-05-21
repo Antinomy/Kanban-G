@@ -12,12 +12,14 @@ func readCorrectTasks(filesList []string) []kt.Task {
 
 	for _, fileName := range filesList {
 		if ts.IsATask(fileName) {
-			fmt.Println(fileName)
-			result = append(result, ts.CreateTask(fileName))
+
+			task := ts.CreateTask(fileName)
+			fmt.Println("TaskCreated", task)
+			result = append(result, task)
 		}
 	}
 
-	fmt.Println(len(result))
+	fmt.Println("Validated Task Num", len(result))
 
 	return result
 }
