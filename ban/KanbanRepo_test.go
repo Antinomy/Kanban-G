@@ -7,7 +7,7 @@ import (
 
 func TestReadCorrectTask(t *testing.T) {
 
-	var folderPath = ".././unittest/myTasks/02-doing"
+	var folderPath = ".././unittest/myTasks/01-todo"
 	var todoList []string = readFileList(folderPath)
 	var todoTasks []kt.Task = readCorrectTasks(todoList)
 

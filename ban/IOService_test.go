@@ -8,12 +8,12 @@ import (
 func TestReadDir(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks/02-doing"
-	var todoList []string = readFileList(folderPath)
+	var doingList []string = readFileList(folderPath)
 
-	var taskNum = len(todoList)
+	var taskNum = len(doingList)
 
-	if taskNum != 3 {
-		t.Log(todoList)
+	if taskNum != 4 {
+		t.Log(doingList)
 		t.Errorf("Failed")
 	}
 }

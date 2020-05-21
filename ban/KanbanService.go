@@ -43,7 +43,7 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 	var ts kt.TaskService = new(kt.FileWay)
 
 	// calc headers and maxCellSize
-	calcHeaderAndMaxCellSize(&result, &kanban, ts, taskItem)
+	calcInfo(&result, &kanban, ts, taskItem)
 
 	if taskItem == kt.UNKNOWN {
 		var cols []interface{}
@@ -65,7 +65,7 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 	return result
 }
 
-func calcHeaderAndMaxCellSize(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.TaskItem) {
+func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.TaskItem) {
 	var maxCellSize int = 0
 
 	for _, ban := range kanban.bans {
