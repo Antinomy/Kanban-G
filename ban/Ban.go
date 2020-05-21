@@ -16,3 +16,10 @@ type Kanban struct {
 	rootPath string
 	bans     []Ban
 }
+
+// Ban entiy
+type KanSpec struct {
+	hearders    []string
+	maxCellSize int
+	rows        [][]interface{}
+}
