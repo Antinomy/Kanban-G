@@ -19,9 +19,7 @@ func TestReadDir(t *testing.T) {
 }
 
 func TestReadConfig(t *testing.T) {
-
-	var folderPath = ".././conf/conf.json"
-	var config kc.Jconf = readJsonConfig(folderPath)
+	var config kc.Jconf = loadConfig()
 
 	var banconfigs []kc.BanConfig = config.BanConfigs
 

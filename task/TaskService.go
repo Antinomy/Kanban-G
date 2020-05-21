@@ -9,6 +9,7 @@ type TaskService interface {
 	CreateTask(taskName string) Task
 	IsATask(taskName string) bool
 	ChangeTask(changingTask ToChangeTask) Task
+	GetTaskDesc(task Task, taskItem TaskItem) string
 }
 
 //FileWay desc
@@ -55,6 +56,17 @@ func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 
 	if changingTask.changeItem == DEADLINE {
 		result.deadline = changingTask.changeContent
+	}
+
+	return result
+}
+
+func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
+
+	var result string = task.fullName
+
+	if taskItem == UNKNOWN {
+		return result
 	}
 
 	return result

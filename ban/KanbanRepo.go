@@ -1,14 +1,33 @@
 package ban
 
 import (
+	"fmt"
 	kc "kanban/conf"
 	kt "kanban/task"
 )
 
+func readCorrectTasks(filesList []string) []kt.Task {
+	var result []kt.Task
+
+	var ts kt.TaskService = new(kt.FileWay)
+
+	for _, fileName := range filesList {
+		if ts.IsATask(fileName) {
+
+			task := ts.CreateTask(fileName)
+			fmt.Println("TaskCreated", task)
+			result = append(result, task)
+		}
+	}
+
+	fmt.Println("Validated Task Num", len(result))
+
+	return result
+}
+
 func buildKanban(folderPath string) Kanban {
 
-	var configPath = ".././conf/conf.json"
-	var config kc.Jconf = readJsonConfig(configPath)
+	var config kc.Jconf = loadConfig()
 
 	var banconfigs []kc.BanConfig = config.BanConfigs
 
@@ -20,6 +39,7 @@ func buildKanban(folderPath string) Kanban {
 		var ban Ban
 		var fullBanPath string = folderPath + "/" + banConf.Folder
 		ban.folder = banConf.Folder
+		ban.name = banConf.Name
 
 		var taskNameList []string = readFileList(fullBanPath)
 		var tasks []kt.Task = readCorrectTasks(taskNameList)
@@ -30,4 +50,11 @@ func buildKanban(folderPath string) Kanban {
 	result.rootPath = folderPath
 	result.bans = bans
 	return result
+}
+
+func loadConfig() kc.Jconf {
+	var configPath = ".././conf/conf.json"
+	var config kc.Jconf = readJsonConfig(configPath)
+
+	return config
 }

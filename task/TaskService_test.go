@@ -92,3 +92,14 @@ func TestChangeTaskDeadline(t *testing.T) {
 		t.Errorf("Failed")
 	}
 }
+
+func TestGetTaskDesc(t *testing.T) {
+	var taskService TaskService = new(FileWay)
+	var task1 Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
+
+	var result = taskService.getTaskDesc(task1, UNKNOWN)
+	if result != "AY-M-ProjectA-20200512-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+}
