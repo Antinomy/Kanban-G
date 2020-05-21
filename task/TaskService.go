@@ -10,6 +10,7 @@ type TaskService interface {
 	IsATask(taskName string) bool
 	ChangeTask(changingTask ToChangeTask) Task
 	GetTaskDesc(task Task, taskItem TaskItem) string
+	FillBlank(taskDesc string, maxSize int) string
 }
 
 //FileWay desc
@@ -67,6 +68,25 @@ func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
 
 	if taskItem == UNKNOWN {
 		return result
+	}
+
+	return result
+}
+
+func (t *FileWay) FillBlank(taskDesc string, maxSize int) string {
+
+	var currentSize = len(taskDesc)
+
+	if currentSize >= maxSize {
+		return taskDesc
+	}
+
+	var result string = taskDesc
+
+	var fillSize = maxSize - currentSize
+
+	for i := 0; i < fillSize; i++ {
+		result += " "
 	}
 
 	return result

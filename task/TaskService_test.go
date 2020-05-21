@@ -97,8 +97,27 @@ func TestGetTaskDesc(t *testing.T) {
 	var taskService TaskService = new(FileWay)
 	var task1 Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
-	var result = taskService.getTaskDesc(task1, UNKNOWN)
+	var result = taskService.GetTaskDesc(task1, UNKNOWN)
 	if result != "AY-M-ProjectA-20200512-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+}
+
+func TestFillBlank(t *testing.T) {
+	var taskService TaskService = new(FileWay)
+	var taskDesc = "1234"
+
+	var result string
+
+	result = taskService.FillBlank(taskDesc, 6)
+	if result != "1234  " {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+
+	result = taskService.FillBlank(taskDesc, 9)
+	if result != "1234     " {
 		t.Log(result)
 		t.Errorf("Failed")
 	}

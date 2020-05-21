@@ -7,54 +7,12 @@ import (
 	"github.com/bndr/gotabulate"
 )
 
-func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
-
-	var result KanSpec
-	var maxCellSize int = 0
-	var ts kt.TaskService = new(kt.FileWay)
-
-	for _, ban := range kanban.bans {
-		result.hearders = append(result.hearders, ban.name)
-
-		for _, tk := range ban.tasks {
-
-			var cellSize = len(ts.GetTaskDesc(tk, taskItem))
-
-			if maxCellSize < cellSize {
-				maxCellSize = cellSize
-			}
-
-		}
-	}
-
-	result.maxCellSize = maxCellSize
-
-	if taskItem == kt.UNKNOWN {
-		var cols []interface{}
-
-		for _, ban := range kanban.bans {
-
-			var cell string
-			for _, tk := range ban.tasks {
-
-				cell += ts.GetTaskDesc(tk, kt.UNKNOWN)
-			}
-			cols = append(cols, cell)
-
-		}
-		result.rows = append(result.rows, cols)
-
-	}
-
-	return result
-}
-
-func kan(kanban Kanban) {
+func kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	//clear screen
 	print("\033[H\033[2J")
 
-	var kanSpec KanSpec = getKanSpec(kanban, kt.UNKNOWN)
+	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
 
 	// Create an object from 2D interface array
 
@@ -77,4 +35,51 @@ func kan(kanban Kanban) {
 	// Print the result: grid, or simple
 	fmt.Println(t.Render("grid"))
 
+}
+
+func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
+
+	var result KanSpec
+	var ts kt.TaskService = new(kt.FileWay)
+
+	// calc headers and maxCellSize
+	calcHeaderAndMaxCellSize(&result, &kanban, ts, taskItem)
+
+	if taskItem == kt.UNKNOWN {
+		var cols []interface{}
+
+		for _, ban := range kanban.bans {
+
+			var cell string
+			for _, tk := range ban.tasks {
+				var taskDesc = ts.GetTaskDesc(tk, taskItem)
+				taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
+				cell += taskDesc
+			}
+			cols = append(cols, cell)
+
+		}
+		result.rows = append(result.rows, cols)
+	}
+
+	return result
+}
+
+func calcHeaderAndMaxCellSize(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.TaskItem) {
+	var maxCellSize int = 0
+
+	for _, ban := range kanban.bans {
+		result.hearders = append(result.hearders, ban.name)
+
+		for _, tk := range ban.tasks {
+
+			var cellSize = len(ts.GetTaskDesc(tk, taskItem))
+
+			if maxCellSize < cellSize {
+				maxCellSize = cellSize
+			}
+
+		}
+	}
+	result.maxCellSize = maxCellSize
 }

@@ -35,5 +35,5 @@ func TestKan(t *testing.T) {
 
 	var kanban Kanban = buildKanban(folderPath)
 
-	kan(kanban)
+	kan(kanban, kt.UNKNOWN)
 }
