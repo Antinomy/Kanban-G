@@ -32,6 +32,7 @@ func TestKanSpec(t *testing.T) {
 func TestKan(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
+	// var folderPath = "/Users/Antinomy/Github/MyTask"
 
 	var kanban Kanban = buildKanban(folderPath)
 

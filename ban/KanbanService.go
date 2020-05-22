@@ -10,7 +10,7 @@ import (
 func kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	//clear screen
-	print("\033[H\033[2J")
+	println("\033[H\033[2J")
 
 	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
 

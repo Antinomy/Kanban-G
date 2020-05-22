@@ -11,13 +11,13 @@ type Ban struct {
 	tasks  []kt.Task
 }
 
-// Ban entiy
+// Kanban entiy
 type Kanban struct {
 	rootPath string
 	bans     []Ban
 }
 
-// Ban entiy
+// KanSpec entiy
 type KanSpec struct {
 	hearders    []string
 	maxCellSize int

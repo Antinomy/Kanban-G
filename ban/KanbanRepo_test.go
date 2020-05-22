@@ -25,7 +25,7 @@ func TestBuildKanban(t *testing.T) {
 
 	var kanban Kanban = buildKanban(folderPath)
 
-	if len(kanban.bans) != 4 || kanban.bans[0].name != "todo" {
+	if len(kanban.bans) != 4 || kanban.bans[0].name != "Todo" {
 		t.Log(kanban)
 		t.Errorf("Failed")
 	}

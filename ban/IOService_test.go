@@ -28,12 +28,12 @@ func TestReadConfig(t *testing.T) {
 		t.Errorf("Failed")
 	}
 
-	if banconfigs[0].Name != "todo" {
+	if banconfigs[0].Name != "Todo" {
 		t.Log(banconfigs[0].Name)
 		t.Errorf("Failed")
 	}
 
-	if banconfigs[0].Folder != "01-todo" {
+	if banconfigs[0].Folder != "01-Todo" {
 		t.Log(banconfigs[0].Folder)
 		t.Errorf("Failed")
 	}

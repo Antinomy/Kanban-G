@@ -2,20 +2,20 @@
     "BanSize": 4,
     "BanConfigs": [
         {
-            "Name": "todo",
-            "Folder": "01-todo"
+            "Name": "Todo",
+            "Folder": "01-Todo"
         },
         {
-            "Name": "doing",
-            "Folder": "02-doing"
+            "Name": "Doing",
+            "Folder": "02-Doing"
         },
         {
-            "Name": "hold",
-            "Folder": "03-hold"
+            "Name": "Hold",
+            "Folder": "03-Hold"
         },
         {
-            "Name": "done",
-            "Folder": "04-done"
+            "Name": "Done",
+            "Folder": "04-Done"
         }
     ]
 }
