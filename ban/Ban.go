@@ -21,5 +21,8 @@ type Kanban struct {
 type KanSpec struct {
 	hearders    []string
 	maxCellSize int
+	owners      []string
+	priorities  []string
+	projects    []string
 	rows        [][]interface{}
 }

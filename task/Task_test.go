@@ -7,13 +7,13 @@ import (
 func TestTask(t *testing.T) {
 	var task1 Task
 
-	task1.owner = "AY"
-	task1.priority = "M"
-	task1.project = "ProjectA"
-	task1.deadline = "20200512"
+	task1.Owner = "AY"
+	task1.Priority = "M"
+	task1.Project = "ProjectA"
+	task1.Deadline = "20200512"
 	task1.tittle = "WriteKanbanCode.md"
 
-	if task1.owner != "AY" {
+	if task1.Owner != "AY" {
 		t.Log(task1)
 		t.Errorf("Failed")
 	}

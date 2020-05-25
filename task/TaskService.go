@@ -20,10 +20,10 @@ type FileWay struct {
 func (t *FileWay) CreateTask(taskName string) Task {
 	var arrs = strings.Split(taskName, "-")
 	var result Task
-	result.owner = arrs[0]
-	result.priority = arrs[1]
-	result.project = arrs[2]
-	result.deadline = arrs[3]
+	result.Owner = arrs[0]
+	result.Priority = arrs[1]
+	result.Project = arrs[2]
+	result.Deadline = arrs[3]
 	result.tittle = arrs[4]
 	result.fullName = taskName
 
@@ -48,15 +48,15 @@ func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 	var result Task = origin
 
 	if changingTask.changeItem == OWNER {
-		result.owner = changingTask.changeContent
+		result.Owner = changingTask.changeContent
 	}
 
 	if changingTask.changeItem == PRIORITY {
-		result.priority = changingTask.changeContent
+		result.Priority = changingTask.changeContent
 	}
 
 	if changingTask.changeItem == DEADLINE {
-		result.deadline = changingTask.changeContent
+		result.Deadline = changingTask.changeContent
 	}
 
 	return result

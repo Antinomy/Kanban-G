@@ -8,7 +8,7 @@ func TestCreateTask(t *testing.T) {
 	var taskService TaskService = new(FileWay)
 	var task1 Task = taskService.CreateTask("AY-M-ProjectA-20200512-WriteKanbanCode.md")
 
-	if task1.project != "ProjectA" {
+	if task1.Project != "ProjectA" {
 		t.Log(task1)
 		t.Errorf("Failed")
 	}
@@ -48,7 +48,7 @@ func TestChangeTaskOwner(t *testing.T) {
 	}
 	var changedTask Task = taskService.ChangeTask(changingTask)
 
-	if changedTask.owner != "WGL" {
+	if changedTask.Owner != "WGL" {
 		t.Log(changedTask)
 		t.Errorf("Failed")
 	}
@@ -68,7 +68,7 @@ func TestChangeTaskpriority(t *testing.T) {
 	}
 	var changedTask = taskService.ChangeTask(changingTask)
 
-	if changedTask.priority != "H" {
+	if changedTask.Priority != "H" {
 		t.Log(changedTask)
 		t.Errorf("Failed")
 	}
@@ -87,7 +87,7 @@ func TestChangeTaskDeadline(t *testing.T) {
 	}
 	var changedTask = taskService.ChangeTask(changingTask)
 
-	if changedTask.deadline != "20200514" {
+	if changedTask.Deadline != "20200514" {
 		t.Log(changedTask)
 		t.Errorf("Failed")
 	}

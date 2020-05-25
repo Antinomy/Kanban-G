@@ -5,10 +5,10 @@ import "strings"
 // Task entiy
 type Task struct {
 	fullName string
-	owner    string
-	priority string
-	project  string
-	deadline string
+	Owner    string
+	Priority string
+	Project  string
+	Deadline string
 	tittle   string
 }
 

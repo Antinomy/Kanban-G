@@ -10,7 +10,8 @@ import (
 func kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	//clear screen
-	println("\033[H\033[2J")
+	// println("\033[H\033[2J")
+	println("Kan View :", taskItem)
 
 	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
 
@@ -60,6 +61,50 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 
 		}
 		result.rows = append(result.rows, cols)
+
+		return result
+	}
+
+	var rowLines []string
+
+	if taskItem == kt.OWNER {
+		rowLines = result.owners
+	}
+
+	if taskItem == kt.PRIORITY {
+		rowLines = result.priorities
+	}
+
+	if taskItem == kt.PROJECT {
+		rowLines = result.projects
+	}
+
+	if taskItem != kt.UNKNOWN {
+
+		for _, rowName := range rowLines {
+			var cols []interface{}
+
+			for index, ban := range kanban.bans {
+				if index == 0 {
+					cols = append(cols, rowName)
+				}
+
+				var cell string
+				for _, tk := range ban.tasks {
+					var isOwnerCase bool = (rowName == tk.Owner && taskItem == kt.OWNER)
+					var isPriorityCase bool = (rowName == tk.Priority && taskItem == kt.PRIORITY)
+					var isProjectCase bool = (rowName == tk.Project && taskItem == kt.PROJECT)
+					if isOwnerCase || isPriorityCase || isProjectCase {
+						var taskDesc = ts.GetTaskDesc(tk, taskItem)
+						taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
+						cell += taskDesc
+					}
+				}
+				cols = append(cols, cell)
+
+			}
+			result.rows = append(result.rows, cols)
+		}
 	}
 
 	return result
@@ -73,6 +118,10 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 
 		for _, tk := range ban.tasks {
 
+			result.owners = appendUnique(result.owners, tk.Owner)
+			result.priorities = appendUnique(result.priorities, tk.Priority)
+			result.projects = appendUnique(result.projects, tk.Project)
+
 			var cellSize = len(ts.GetTaskDesc(tk, taskItem))
 
 			if maxCellSize < cellSize {
@@ -82,4 +131,16 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 		}
 	}
 	result.maxCellSize = maxCellSize
+}
+
+func appendUnique(result []string, target string) []string {
+	for _, item := range result {
+		if item == target {
+			return result
+		}
+	}
+
+	result = append(result, target)
+
+	return result
 }
