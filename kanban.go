@@ -13,7 +13,10 @@ func main() {
 	var path = os.Args[1]
 	var kanban kb.Kanban = kb.BuildKanban(path)
 
+	//	clear screen
+	println("\033[H\033[2J")
 	kb.Kan(kanban, kt.UNKNOWN)
+	print("Input Cmd $ ")
 
 	var (
 		cmd    string
@@ -26,7 +29,7 @@ func main() {
 
 	for input.Scan() {
 		//控制循环退出
-		if input.Text() == "exit" {
+		if input.Text() == "exit" || input.Text() == "e" {
 			break
 		}
 
@@ -37,6 +40,7 @@ func main() {
 
 		if len(cmds) <= 1 {
 			kb.Kan(kanban, kt.UNKNOWN)
+			print("Input Cmd $ ")
 			continue
 		}
 
@@ -48,6 +52,7 @@ func main() {
 			var taskItem kt.TaskItem = kt.GetTaskItem(param1)
 
 			kb.Kan(kanban, taskItem)
+			print("Input Cmd $ ")
 		}
 	}
 
