@@ -4,6 +4,7 @@ import (
 	"fmt"
 	kc "kanban/conf"
 	kt "kanban/task"
+	"os"
 )
 
 func readCorrectTasks(filesList []string) []kt.Task {
@@ -25,7 +26,7 @@ func readCorrectTasks(filesList []string) []kt.Task {
 	return result
 }
 
-func buildKanban(folderPath string) Kanban {
+func BuildKanban(folderPath string) Kanban {
 
 	var config kc.Jconf = loadConfig()
 
@@ -54,6 +55,12 @@ func buildKanban(folderPath string) Kanban {
 
 func loadConfig() kc.Jconf {
 	var configPath = ".././conf/conf.json"
+
+	_, err := os.Stat(configPath)
+	if os.IsNotExist(err) {
+		configPath = "./conf/conf.json"
+	}
+
 	var config kc.Jconf = readJsonConfig(configPath)
 
 	return config

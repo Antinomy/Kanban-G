@@ -23,28 +23,28 @@ func TestTask(t *testing.T) {
 func TestTaskItem(t *testing.T) {
 	var item TaskItem
 
-	item = getTaskItem("owner")
+	item = GetTaskItem("owner")
 	assertOwner(item, t)
 
-	item = getTaskItem("OwnEr")
+	item = GetTaskItem("OwnEr")
 	assertOwner(item, t)
 
-	item = getTaskItem("OWNER")
+	item = GetTaskItem("OWNER")
 	assertOwner(item, t)
 
-	item = getTaskItem("PRIORITY1")
+	item = GetTaskItem("PRIORITY1")
 	if item != UNKNOWN {
 		t.Log(item)
 		t.Errorf("Failed")
 	}
 
-	item = getTaskItem("PRIoRITY")
+	item = GetTaskItem("PRIoRITY")
 	assertPriority(item, t)
 
-	item = getTaskItem("DEAdLINE")
+	item = GetTaskItem("DEAdLINE")
 	assertDeadline(item, t)
 
-	item = getTaskItem("PROJEcT")
+	item = GetTaskItem("PROJEcT")
 	assertProject(item, t)
 
 }
@@ -52,28 +52,28 @@ func TestTaskItem(t *testing.T) {
 func TestTaskItemShortCut(t *testing.T) {
 	var item TaskItem
 
-	item = getTaskItem("o")
+	item = GetTaskItem("o")
 	assertOwner(item, t)
 
-	item = getTaskItem("own")
+	item = GetTaskItem("own")
 	assertOwner(item, t)
 
-	item = getTaskItem("prI")
+	item = GetTaskItem("prI")
 	assertPriority(item, t)
 
-	item = getTaskItem("pi")
+	item = GetTaskItem("pi")
 	assertPriority(item, t)
 
-	item = getTaskItem("dl")
+	item = GetTaskItem("dl")
 	assertDeadline(item, t)
 
-	item = getTaskItem("d")
+	item = GetTaskItem("d")
 	assertDeadline(item, t)
 
-	item = getTaskItem("pj")
+	item = GetTaskItem("pj")
 	assertProject(item, t)
 
-	item = getTaskItem("prj")
+	item = GetTaskItem("prj")
 	assertProject(item, t)
 
 }

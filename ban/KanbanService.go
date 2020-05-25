@@ -9,7 +9,7 @@ import (
 	"github.com/bndr/gotabulate"
 )
 
-func kan(kanban Kanban, taskItem kt.TaskItem) {
+func Kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	//clear screen
 	// println("\033[H\033[2J")

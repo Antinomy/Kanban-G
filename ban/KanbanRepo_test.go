@@ -23,7 +23,7 @@ func TestBuildKanban(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
 
-	var kanban Kanban = buildKanban(folderPath)
+	var kanban Kanban = BuildKanban(folderPath)
 
 	if len(kanban.bans) != 4 || kanban.bans[0].name != "Todo" {
 		t.Log(kanban)

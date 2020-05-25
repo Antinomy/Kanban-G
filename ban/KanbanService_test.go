@@ -9,7 +9,7 @@ func TestKanSpec(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
 
-	var kanban Kanban = buildKanban(folderPath)
+	var kanban Kanban = BuildKanban(folderPath)
 
 	var kanSpec KanSpec = getKanSpec(kanban, kt.UNKNOWN)
 
@@ -33,7 +33,7 @@ func TestKanSpecOwner(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
 
-	var kanban Kanban = buildKanban(folderPath)
+	var kanban Kanban = BuildKanban(folderPath)
 
 	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
 
@@ -84,7 +84,7 @@ func TestDeadlineType(t *testing.T) {
 	}
 
 	dl = getDeadlineType("0512")
-	if dl != kt.MONTH {
+	if dl != "MONTH:05" {
 		t.Log(dl)
 		t.Errorf("Failed")
 	}
@@ -93,13 +93,13 @@ func TestDeadlineType(t *testing.T) {
 func TestKan(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
-	// var folderPath = "/Users/Antinomy/Github/MyTask"
+	// folderPath = "/Users/Antinomy/Github/MyTask"
 
-	var kanban Kanban = buildKanban(folderPath)
+	var kanban Kanban = BuildKanban(folderPath)
 
-	kan(kanban, kt.UNKNOWN)
-	kan(kanban, kt.OWNER)
-	kan(kanban, kt.PRIORITY)
-	kan(kanban, kt.PROJECT)
-	kan(kanban, kt.DEADLINE)
+	Kan(kanban, kt.UNKNOWN)
+	Kan(kanban, kt.OWNER)
+	Kan(kanban, kt.PRIORITY)
+	Kan(kanban, kt.PROJECT)
+	Kan(kanban, kt.DEADLINE)
 }

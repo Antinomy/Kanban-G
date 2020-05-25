@@ -31,7 +31,7 @@ const (
 	UNKNOWN  TaskItem = "UNKNOWN"
 )
 
-func getTaskItem(itemTypeStr string) TaskItem {
+func GetTaskItem(itemTypeStr string) TaskItem {
 	var itemType string = strings.ToUpper(itemTypeStr)
 
 	switch itemType {
