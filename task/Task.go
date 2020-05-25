@@ -51,3 +51,9 @@ func getTaskItem(itemTypeStr string) TaskItem {
 		return UNKNOWN
 	}
 }
+
+// deadline type desc
+const (
+	MONTH string = "MONTH"
+	YEAR  string = "YEAR"
+)

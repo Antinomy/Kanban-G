@@ -19,10 +19,11 @@ type Kanban struct {
 
 // KanSpec entiy
 type KanSpec struct {
-	hearders    []string
-	maxCellSize int
-	owners      []string
-	priorities  []string
-	projects    []string
-	rows        [][]interface{}
+	hearders      []string
+	maxCellSize   int
+	owners        []string
+	priorities    []string
+	projects      []string
+	deadlineTypes []string
+	rows          [][]interface{}
 }

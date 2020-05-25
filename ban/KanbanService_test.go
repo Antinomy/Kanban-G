@@ -74,6 +74,22 @@ func TestUniqueArray(t *testing.T) {
 
 }
 
+func TestDeadlineType(t *testing.T) {
+	var dl string
+
+	dl = getDeadlineType("2020")
+	if dl != kt.YEAR {
+		t.Log(dl)
+		t.Errorf("Failed")
+	}
+
+	dl = getDeadlineType("0512")
+	if dl != kt.MONTH {
+		t.Log(dl)
+		t.Errorf("Failed")
+	}
+}
+
 func TestKan(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
@@ -85,4 +101,5 @@ func TestKan(t *testing.T) {
 	kan(kanban, kt.OWNER)
 	kan(kanban, kt.PRIORITY)
 	kan(kanban, kt.PROJECT)
+	kan(kanban, kt.DEADLINE)
 }

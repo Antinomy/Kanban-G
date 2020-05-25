@@ -3,6 +3,7 @@ package ban
 import (
 	"fmt"
 	kt "kanban/task"
+	"strings"
 
 	"github.com/bndr/gotabulate"
 )
@@ -79,32 +80,36 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 		rowLines = result.projects
 	}
 
-	if taskItem != kt.UNKNOWN {
+	if taskItem == kt.DEADLINE {
+		rowLines = result.deadlineTypes
+	}
 
-		for _, rowName := range rowLines {
-			var cols []interface{}
+	for _, rowName := range rowLines {
+		var cols []interface{}
 
-			for index, ban := range kanban.bans {
-				if index == 0 {
-					cols = append(cols, rowName)
-				}
-
-				var cell string
-				for _, tk := range ban.tasks {
-					var isOwnerCase bool = (rowName == tk.Owner && taskItem == kt.OWNER)
-					var isPriorityCase bool = (rowName == tk.Priority && taskItem == kt.PRIORITY)
-					var isProjectCase bool = (rowName == tk.Project && taskItem == kt.PROJECT)
-					if isOwnerCase || isPriorityCase || isProjectCase {
-						var taskDesc = ts.GetTaskDesc(tk, taskItem)
-						taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
-						cell += taskDesc
-					}
-				}
-				cols = append(cols, cell)
-
+		for index, ban := range kanban.bans {
+			if index == 0 {
+				cols = append(cols, rowName)
 			}
-			result.rows = append(result.rows, cols)
+
+			var cell string
+			for _, tk := range ban.tasks {
+				var isOwnerCase bool = (rowName == tk.Owner && taskItem == kt.OWNER)
+				var isPriorityCase bool = (rowName == tk.Priority && taskItem == kt.PRIORITY)
+				var isProjectCase bool = (rowName == tk.Project && taskItem == kt.PROJECT)
+
+				var isDeadlineCase bool = (rowName == getDeadlineType(tk.Deadline) && taskItem == kt.DEADLINE)
+
+				if isOwnerCase || isPriorityCase || isProjectCase || isDeadlineCase {
+					var taskDesc = ts.GetTaskDesc(tk, taskItem)
+					taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
+					cell += taskDesc
+				}
+			}
+			cols = append(cols, cell)
+
 		}
+		result.rows = append(result.rows, cols)
 	}
 
 	return result
@@ -121,6 +126,7 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 			result.owners = appendUnique(result.owners, tk.Owner)
 			result.priorities = appendUnique(result.priorities, tk.Priority)
 			result.projects = appendUnique(result.projects, tk.Project)
+			result.deadlineTypes = appendUnique(result.deadlineTypes, getDeadlineType(tk.Deadline))
 
 			var cellSize = len(ts.GetTaskDesc(tk, taskItem))
 
@@ -143,4 +149,12 @@ func appendUnique(result []string, target string) []string {
 	result = append(result, target)
 
 	return result
+}
+
+func getDeadlineType(deadline string) string {
+	if strings.HasPrefix(deadline, "2") {
+		return kt.YEAR
+	}
+
+	return kt.MONTH
 }
