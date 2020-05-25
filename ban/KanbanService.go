@@ -3,6 +3,7 @@ package ban
 import (
 	"fmt"
 	kt "kanban/task"
+	"sort"
 	"strings"
 
 	"github.com/bndr/gotabulate"
@@ -136,6 +137,12 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 
 		}
 	}
+
+	sort.Strings(result.owners)
+	sort.Strings(result.priorities)
+	sort.Strings(result.projects)
+	sort.Strings(result.deadlineTypes)
+
 	result.maxCellSize = maxCellSize
 }
 
@@ -156,5 +163,5 @@ func getDeadlineType(deadline string) string {
 		return kt.YEAR
 	}
 
-	return kt.MONTH
+	return kt.MONTH + ":" + deadline[0:2]
 }
