@@ -64,11 +64,17 @@ func TestTaskItemShortCut(t *testing.T) {
 	item = GetTaskItem("pi")
 	assertPriority(item, t)
 
+	item = GetTaskItem("i")
+	assertPriority(item, t)
+
 	item = GetTaskItem("dl")
 	assertDeadline(item, t)
 
 	item = GetTaskItem("d")
 	assertDeadline(item, t)
+
+	item = GetTaskItem("j")
+	assertProject(item, t)
 
 	item = GetTaskItem("pj")
 	assertProject(item, t)

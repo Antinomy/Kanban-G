@@ -38,13 +38,13 @@ func GetTaskItem(itemTypeStr string) TaskItem {
 	case "OWNER", "OWN", "O":
 		return OWNER
 
-	case "PRIORITY", "PRI", "PI":
+	case "PRIORITY", "PRI", "PI", "I":
 		return PRIORITY
 
 	case "DEADLINE", "DL", "D":
 		return DEADLINE
 
-	case "PROJECT", "PRJ", "PJ":
+	case "PROJECT", "PRJ", "PJ", "J":
 		return PROJECT
 
 	default:
