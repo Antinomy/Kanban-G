@@ -60,6 +60,10 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 
 		for _, ban := range kanban.bans {
 
+			if kanban.IsShortMode && ban.supportShortMode {
+				continue
+			}
+
 			var cell string
 			for _, tk := range ban.tasks {
 				var taskDesc = ts.GetTaskDesc(tk, taskItem)
@@ -100,6 +104,10 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 				cols = append(cols, rowName)
 			}
 
+			if kanban.IsShortMode && ban.supportShortMode {
+				continue
+			}
+
 			var cell string
 			for _, tk := range ban.tasks {
 				var isOwnerCase bool = (rowName == tk.Owner && taskItem == kt.OWNER)
@@ -127,6 +135,11 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 	var maxCellSize int = 0
 
 	for _, ban := range kanban.bans {
+
+		if kanban.IsShortMode && ban.supportShortMode {
+			continue
+		}
+
 		result.hearders = append(result.hearders, ban.name)
 
 		for _, tk := range ban.tasks {

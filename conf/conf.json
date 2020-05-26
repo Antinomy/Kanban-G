@@ -3,19 +3,23 @@
     "BanConfigs": [
         {
             "Name": "Todo",
-            "Folder": "01-Todo"
+            "Folder": "01-Todo",
+            "SupportShortMode": false
         },
         {
             "Name": "Doing",
-            "Folder": "02-Doing"
+            "Folder": "02-Doing",
+            "SupportShortMode": false
         },
         {
             "Name": "Hold",
-            "Folder": "03-Hold"
+            "Folder": "03-Hold",
+            "SupportShortMode": false
         },
         {
             "Name": "Done",
-            "Folder": "04-Done"
+            "Folder": "04-Done",
+            "SupportShortMode": true
         }
     ]
 }

@@ -6,15 +6,17 @@ import (
 
 // Ban entiy
 type Ban struct {
-	name   string
-	folder string
-	tasks  []kt.Task
+	name             string
+	folder           string
+	tasks            []kt.Task
+	supportShortMode bool
 }
 
 // Kanban entiy
 type Kanban struct {
-	rootPath string
-	bans     []Ban
+	rootPath    string
+	bans        []Ban
+	IsShortMode bool
 }
 
 // KanSpec entiy

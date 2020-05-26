@@ -37,4 +37,9 @@ func TestReadConfig(t *testing.T) {
 		t.Log(banconfigs[0].Folder)
 		t.Errorf("Failed")
 	}
+
+	if banconfigs[3].SupportShortMode != true {
+		t.Log(banconfigs[3].SupportShortMode)
+		t.Errorf("Failed")
+	}
 }

@@ -19,7 +19,7 @@ func main() {
 	var (
 		cmd    string
 		param1 string
-		// param2 string
+		param2 string
 	)
 
 	// fmt.Scanln(&cmd, &param1, &param2)
@@ -30,6 +30,9 @@ func main() {
 		if input.Text() == "exit" || input.Text() == "e" {
 			break
 		}
+
+		// default
+		kanban.IsShortMode = false
 
 		var cmds []string = strings.Split(input.Text(), " ")
 
@@ -51,7 +54,14 @@ func main() {
 		if len(cmds) >= 2 {
 			param1 = cmds[1]
 		}
-		// param2 = cmds[2]
+
+		if len(cmds) >= 3 {
+			param2 = cmds[2]
+
+			if strings.ToLower(param2) == "short" || strings.ToLower(param2) == "s" {
+				kanban.IsShortMode = true
+			}
+		}
 
 		if strings.ToLower(cmd) == "kan" || strings.ToLower(cmd) == "k" {
 			var taskItem kt.TaskItem = kt.GetTaskItem(param1)

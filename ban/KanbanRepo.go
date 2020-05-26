@@ -41,6 +41,7 @@ func BuildKanban(folderPath string) Kanban {
 		var fullBanPath string = folderPath + "/" + banConf.Folder
 		ban.folder = banConf.Folder
 		ban.name = banConf.Name
+		ban.supportShortMode = banConf.SupportShortMode
 
 		var taskNameList []string = readFileList(fullBanPath)
 		var tasks []kt.Task = readCorrectTasks(taskNameList)
