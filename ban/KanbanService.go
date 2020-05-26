@@ -5,17 +5,24 @@ import (
 	kt "kanban/task"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/bndr/gotabulate"
 )
 
 func Kan(kanban Kanban, taskItem kt.TaskItem) {
 
-	//clear screen
-	// println("\033[H\033[2J")
-	println("Kan View :", taskItem)
-
 	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
+
+	var ts kt.TaskService = new(kt.FileWay)
+
+	tskItem := string(taskItem)
+
+	var viewType = ts.FillBlank("Kan View : "+tskItem, kanSpec.maxCellSize)
+
+	var today = ts.FillBlank("Today : "+time.Now().Format("0102"), kanSpec.maxCellSize)
+
+	println(viewType, today)
 
 	// Create an object from 2D interface array
 
