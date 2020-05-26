@@ -22,7 +22,8 @@ func Kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	var today = ts.FillBlank("Today : "+time.Now().Format("0102"), kanSpec.maxCellSize)
 
-	println(viewType, today)
+	println(viewType)
+	println(today)
 
 	// Create an object from 2D interface array
 

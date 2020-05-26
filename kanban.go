@@ -40,13 +40,8 @@ func main() {
 			cmd = cmds[0]
 		}
 
-		if strings.ToLower(cmd) == "rekan" || strings.ToLower(cmd) == "r" {
+		if strings.ToLower(cmd) == "rekan" || strings.ToLower(cmd) == "r" || len(cmds) <= 1 {
 			kanban = kb.BuildKanban(path)
-			refreshScreen(kanban, kt.UNKNOWN)
-			continue
-		}
-
-		if len(cmds) <= 1 {
 			refreshScreen(kanban, kt.UNKNOWN)
 			continue
 		}
