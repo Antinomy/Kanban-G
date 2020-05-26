@@ -170,5 +170,10 @@ func getDeadlineType(deadline string) string {
 		return kt.YEAR
 	}
 
+	var today = time.Now().Format("0102")
+	if deadline == today {
+		return "DAY:" + today
+	}
+
 	return kt.MONTH + ":" + deadline[0:2]
 }
