@@ -20,7 +20,7 @@ func Kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	var viewType = ts.FillBlank("Kan View : "+tskItem, kanSpec.maxCellSize)
 
-	var today = ts.FillBlank("Today : "+time.Now().Format("0102"), kanSpec.maxCellSize)
+	var today = ts.FillBlank("Today    : "+time.Now().Format("0102"), kanSpec.maxCellSize)
 
 	println(viewType)
 	println(today)
