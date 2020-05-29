@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	kc "kanban/conf"
 	"log"
+	"os"
 )
 
 func readFileList(folderPath string) []string {
@@ -25,6 +26,19 @@ func readFileList(folderPath string) []string {
 	}
 
 	return result
+}
+
+func loadConfig() kc.Jconf {
+	var configPath = ".././conf/conf.json"
+
+	_, err := os.Stat(configPath)
+	if os.IsNotExist(err) {
+		configPath = "./conf/conf.json"
+	}
+
+	var config kc.Jconf = readJsonConfig(configPath)
+
+	return config
 }
 
 func readJsonConfig(filePath string) kc.Jconf {
