@@ -135,6 +135,8 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.TaskItem) {
 	var maxCellSize int = 0
 
+	result.priorities = appendPriorities(result.priorities)
+
 	for _, ban := range kanban.bans {
 
 		if kanban.IsShortMode && ban.supportShortMode {
@@ -160,7 +162,6 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 	}
 
 	sort.Strings(result.owners)
-	sort.Strings(result.priorities)
 	sort.Strings(result.projects)
 	sort.Strings(result.deadlineTypes)
 
@@ -175,6 +176,15 @@ func appendUnique(result []string, target string) []string {
 	}
 
 	result = append(result, target)
+
+	return result
+}
+
+func appendPriorities(result []string) []string {
+
+	result = append(result, "H")
+	result = append(result, "M")
+	result = append(result, "L")
 
 	return result
 }
