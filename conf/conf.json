@@ -11,7 +11,7 @@
             "Name": "Doing",
             "Folder": "02-Doing",
             "SupportShortMode": false,
-            "Prefix": "d"
+            "Prefix": "i"
         },
         {
             "Name": "Hold",
@@ -23,7 +23,7 @@
             "Name": "Done",
             "Folder": "04-Done",
             "SupportShortMode": true,
-            "Prefix": "e"
+            "Prefix": "d"
         }
     ]
 }
