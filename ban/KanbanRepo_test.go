@@ -9,12 +9,17 @@ func TestReadCorrectTask(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks/01-todo"
 	var todoList []string = readFileList(folderPath)
-	var todoTasks []kt.Task = readCorrectTasks(todoList)
+	var todoTasks []kt.Task = readCorrectTasks(todoList, "t")
 
 	var taskNum = len(todoTasks)
 
 	if taskNum != 2 {
 		t.Log(todoTasks)
+		t.Errorf("Failed")
+	}
+
+	if todoTasks[0].Key != "t1" {
+		t.Log(todoTasks[0].Key)
 		t.Errorf("Failed")
 	}
 }

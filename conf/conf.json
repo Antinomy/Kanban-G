@@ -4,22 +4,26 @@
         {
             "Name": "Todo",
             "Folder": "01-Todo",
-            "SupportShortMode": false
+            "SupportShortMode": false,
+            "Prefix": "t"
         },
         {
             "Name": "Doing",
             "Folder": "02-Doing",
-            "SupportShortMode": false
+            "SupportShortMode": false,
+            "Prefix": "d"
         },
         {
             "Name": "Hold",
             "Folder": "03-Hold",
-            "SupportShortMode": false
+            "SupportShortMode": false,
+            "Prefix": "h"
         },
         {
             "Name": "Done",
             "Folder": "04-Done",
-            "SupportShortMode": true
+            "SupportShortMode": true,
+            "Prefix": "e"
         }
     ]
 }

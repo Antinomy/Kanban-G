@@ -4,19 +4,23 @@ import (
 	"fmt"
 	kc "kanban/conf"
 	kt "kanban/task"
+	"strconv"
 )
 
-func readCorrectTasks(filesList []string) []kt.Task {
+func readCorrectTasks(filesList []string, key string) []kt.Task {
 	var result []kt.Task
 
 	var ts kt.TaskService = new(kt.FileWay)
 
+	var index int = 1
 	for _, fileName := range filesList {
 		if ts.IsATask(fileName) {
 
 			task := ts.CreateTask(fileName)
+			task.Key = key + strconv.Itoa(index)
 			fmt.Println("TaskCreated", task)
 			result = append(result, task)
+			index++
 		}
 	}
 
@@ -41,9 +45,10 @@ func BuildKanban(folderPath string) Kanban {
 		ban.folder = banConf.Folder
 		ban.name = banConf.Name
 		ban.supportShortMode = banConf.SupportShortMode
+		ban.prefix = banConf.Prefix
 
 		var taskNameList []string = readFileList(fullBanPath)
-		var tasks []kt.Task = readCorrectTasks(taskNameList)
+		var tasks []kt.Task = readCorrectTasks(taskNameList, ban.prefix)
 		ban.tasks = tasks
 		bans = append(bans, ban)
 	}

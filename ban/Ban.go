@@ -10,6 +10,7 @@ type Ban struct {
 	folder           string
 	tasks            []kt.Task
 	supportShortMode bool
+	prefix           string
 }
 
 // Kanban entiy

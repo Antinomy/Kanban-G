@@ -102,6 +102,14 @@ func TestGetTaskDesc(t *testing.T) {
 		t.Log(result)
 		t.Errorf("Failed")
 	}
+
+	task1.Key = "t1"
+
+	result = taskService.GetTaskDesc(task1, UNKNOWN)
+	if result != "[t1] AY-M-ProjectA-20200512-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
 }
 
 func TestFillBlank(t *testing.T) {

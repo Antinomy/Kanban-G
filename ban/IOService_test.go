@@ -38,6 +38,11 @@ func TestReadConfig(t *testing.T) {
 		t.Errorf("Failed")
 	}
 
+	if banconfigs[0].Prefix != "t" {
+		t.Log(banconfigs[0].Prefix)
+		t.Errorf("Failed")
+	}
+
 	if banconfigs[3].SupportShortMode != true {
 		t.Log(banconfigs[3].SupportShortMode)
 		t.Errorf("Failed")

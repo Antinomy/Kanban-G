@@ -10,6 +10,7 @@ type Task struct {
 	Project  string
 	Deadline string
 	tittle   string
+	Key      string
 }
 
 // ToChangeTask desc

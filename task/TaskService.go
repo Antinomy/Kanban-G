@@ -66,7 +66,16 @@ func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
 
 	var result string = task.fullName
 
+	var prefix string = ""
+
+	if len(task.Key) != 0 {
+		prefix = "[" + task.Key + "] "
+	}
+
+	result = prefix + result
+
 	if taskItem == UNKNOWN {
+
 		return result
 	}
 
