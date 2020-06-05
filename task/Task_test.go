@@ -11,7 +11,7 @@ func TestTask(t *testing.T) {
 	task1.Priority = "M"
 	task1.Project = "ProjectA"
 	task1.Deadline = "20200512"
-	task1.tittle = "WriteKanbanCode.md"
+	task1.Tittle = "WriteKanbanCode.md"
 
 	if task1.Owner != "AY" {
 		t.Log(task1)

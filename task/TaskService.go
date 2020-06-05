@@ -24,8 +24,8 @@ func (t *FileWay) CreateTask(taskName string) Task {
 	result.Priority = arrs[1]
 	result.Project = arrs[2]
 	result.Deadline = arrs[3]
-	result.tittle = arrs[4]
-	result.fullName = taskName
+	result.Tittle = arrs[4]
+	result.FullName = taskName
 
 	return result
 }
@@ -64,7 +64,7 @@ func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 
 func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
 
-	var result string = task.fullName
+	var result string = task.FullName
 
 	var prefix string = ""
 

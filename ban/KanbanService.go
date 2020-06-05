@@ -53,6 +53,9 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 	var result KanSpec
 	var ts kt.TaskService = new(kt.FileWay)
 
+	taskMap := make(map[string]string)
+	banMap := make(map[string]string)
+
 	// calc headers and maxCellSize
 	calcInfo(&result, &kanban, ts, taskItem)
 
@@ -70,12 +73,16 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 				var taskDesc = ts.GetTaskDesc(tk, taskItem)
 				taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
 				cell += taskDesc
+				banMap[tk.Key] = ban.folder
+				taskMap[tk.Key] = tk.FullName
 			}
 			cols = append(cols, cell)
 
 		}
 		result.rows = append(result.rows, cols)
 
+		result.taskMap = taskMap
+		result.banMap = banMap
 		return result
 	}
 
@@ -122,6 +129,9 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 					taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
 					cell += taskDesc
 				}
+
+				banMap[tk.Key] = ban.folder
+				taskMap[tk.Key] = tk.FullName
 			}
 			cols = append(cols, cell)
 
@@ -129,6 +139,8 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 		result.rows = append(result.rows, cols)
 	}
 
+	result.taskMap = taskMap
+	result.banMap = banMap
 	return result
 }
 

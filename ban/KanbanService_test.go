@@ -53,6 +53,31 @@ func TestKanSpecOwner(t *testing.T) {
 	}
 }
 
+func TestKanSpecMap(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+
+	var kanban Kanban = BuildKanban(folderPath)
+
+	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
+
+	var taskMap map[string]string = kanSpec.taskMap
+	var banMap map[string]string = kanSpec.banMap
+
+	if taskMap["t1"] != "AY-H-ProjectA-0531-doSth.md" {
+		t.Log(taskMap["t1"])
+		t.Errorf("Failed")
+		t.Log(taskMap)
+	}
+
+	if banMap["t1"] != "01-Todo" {
+		t.Log(banMap["t1"])
+		t.Errorf("Failed")
+		t.Log(banMap)
+	}
+
+}
+
 func TestUniqueArray(t *testing.T) {
 
 	var owners []string

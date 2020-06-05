@@ -29,4 +29,6 @@ type KanSpec struct {
 	projects      []string
 	deadlineTypes []string
 	rows          [][]interface{}
+	taskMap       map[string]string
+	banMap        map[string]string
 }
