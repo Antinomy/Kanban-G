@@ -2,12 +2,37 @@
 Kanban Project reborn by Go
 
 
-# in case need to install ralted package
-sudo go get -v github.com/mdempsky/gocode 
-sudo go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs 
-sudo go get -v github.com/ramya-rao-a/go-outline 
-sudo go get -v github.com/stamblerre/gocode 
-sudo go get -v github.com/rogpeppe/godef 
-sudo go get -v golang.org/x/tools/cmd/goimports 
-sudo go get -v golang.org/x/lint/golint 
-sudo go get -v github.com/go-delve/delve/cmd/dlv
+# exit
+> exit / e
+
+# relaod
+> rekan / r
+
+# kan
+>  kan / k [TaskItem]  
+[TaskItem] = i / o / j /d   
+i = case "PRIORITY", "PRI", "PI", "I"  
+o = case "OWNER", "OWN", "O"  
+d = case "DEADLINE", "DL", "D"  
+j = case "PROJECT", "PRJ", "PJ", "J"  
+
+# kan short mode
+> k [TaskItem] short / s
+
+# change task
+>  changetask / ct [targetKey] [TaskItem] context  
+e.g.   
+ct t1 o AY  
+ct t2 i H  
+ct t3 d 0605  
+ct t4 j [Travel]  
+
+# change ban
+> changeban / cb [targetKey] [banPrefix]  
+e.g.  
+cb t1 i  
+cb t2 h  
+cb t3 d  
+
+
+ 

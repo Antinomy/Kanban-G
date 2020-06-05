@@ -20,7 +20,7 @@ type Kanban struct {
 	IsShortMode bool
 }
 
-// KanSpec entiy
+// KanSpec vo
 type KanSpec struct {
 	hearders      []string
 	maxCellSize   int
@@ -29,6 +29,12 @@ type KanSpec struct {
 	projects      []string
 	deadlineTypes []string
 	rows          [][]interface{}
-	taskMap       map[string]string
-	banMap        map[string]string
+	taskMap       map[string]kt.Task
+	banMap        map[string]Ban
+}
+
+// ChangeSpec vo
+type ChangeSpec struct {
+	originPath  string
+	changedPath string
 }

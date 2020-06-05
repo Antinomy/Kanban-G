@@ -43,21 +43,27 @@ func (t *FileWay) IsATask(taskName string) bool {
 }
 
 func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
-	var origin = changingTask.origin
+	var origin = changingTask.Origin
 
 	var result Task = origin
 
-	if changingTask.changeItem == OWNER {
-		result.Owner = changingTask.changeContent
+	if changingTask.ChangeItem == OWNER {
+		result.Owner = changingTask.ChangeContent
 	}
 
-	if changingTask.changeItem == PRIORITY {
-		result.Priority = changingTask.changeContent
+	if changingTask.ChangeItem == PRIORITY {
+		result.Priority = changingTask.ChangeContent
 	}
 
-	if changingTask.changeItem == DEADLINE {
-		result.Deadline = changingTask.changeContent
+	if changingTask.ChangeItem == PROJECT {
+		result.Deadline = changingTask.ChangeContent
 	}
+
+	if changingTask.ChangeItem == DEADLINE {
+		result.Deadline = changingTask.ChangeContent
+	}
+
+	result.FullName = result.Owner + "-" + result.Priority + "-" + result.Project + "-" + result.Deadline + "-" + result.Tittle
 
 	return result
 }

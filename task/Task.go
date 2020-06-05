@@ -15,9 +15,9 @@ type Task struct {
 
 // ToChangeTask desc
 type ToChangeTask struct {
-	origin        Task
-	changeItem    TaskItem
-	changeContent string
+	Origin        Task
+	ChangeItem    TaskItem
+	ChangeContent string
 }
 
 // TaskItem desc

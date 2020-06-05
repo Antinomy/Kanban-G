@@ -42,13 +42,18 @@ func TestChangeTaskOwner(t *testing.T) {
 
 	// change owner
 	changingTask := ToChangeTask{
-		origin:        originTask,
-		changeItem:    OWNER,
-		changeContent: "WGL",
+		Origin:        originTask,
+		ChangeItem:    OWNER,
+		ChangeContent: "WGL",
 	}
 	var changedTask Task = taskService.ChangeTask(changingTask)
 
 	if changedTask.Owner != "WGL" {
+		t.Log(changedTask)
+		t.Errorf("Failed")
+	}
+
+	if changedTask.FullName != "WGL-M-ProjectA-20200512-WriteKanbanCode.md" {
 		t.Log(changedTask)
 		t.Errorf("Failed")
 	}
@@ -62,13 +67,18 @@ func TestChangeTaskpriority(t *testing.T) {
 
 	// change priority
 	var changingTask = ToChangeTask{
-		origin:        originTask,
-		changeItem:    PRIORITY,
-		changeContent: "H",
+		Origin:        originTask,
+		ChangeItem:    PRIORITY,
+		ChangeContent: "H",
 	}
 	var changedTask = taskService.ChangeTask(changingTask)
 
 	if changedTask.Priority != "H" {
+		t.Log(changedTask)
+		t.Errorf("Failed")
+	}
+
+	if changedTask.FullName != "AY-H-ProjectA-20200512-WriteKanbanCode.md" {
 		t.Log(changedTask)
 		t.Errorf("Failed")
 	}
@@ -81,13 +91,18 @@ func TestChangeTaskDeadline(t *testing.T) {
 
 	// change deadline
 	var changingTask = ToChangeTask{
-		origin:        originTask,
-		changeItem:    DEADLINE,
-		changeContent: "20200514",
+		Origin:        originTask,
+		ChangeItem:    DEADLINE,
+		ChangeContent: "20200514",
 	}
 	var changedTask = taskService.ChangeTask(changingTask)
 
 	if changedTask.Deadline != "20200514" {
+		t.Log(changedTask)
+		t.Errorf("Failed")
+	}
+
+	if changedTask.FullName != "AY-M-ProjectA-20200514-WriteKanbanCode.md" {
 		t.Log(changedTask)
 		t.Errorf("Failed")
 	}

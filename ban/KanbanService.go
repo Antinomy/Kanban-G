@@ -53,8 +53,8 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 	var result KanSpec
 	var ts kt.TaskService = new(kt.FileWay)
 
-	taskMap := make(map[string]string)
-	banMap := make(map[string]string)
+	taskMap := make(map[string]kt.Task)
+	banMap := make(map[string]Ban)
 
 	// calc headers and maxCellSize
 	calcInfo(&result, &kanban, ts, taskItem)
@@ -73,8 +73,8 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 				var taskDesc = ts.GetTaskDesc(tk, taskItem)
 				taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
 				cell += taskDesc
-				banMap[tk.Key] = ban.folder
-				taskMap[tk.Key] = tk.FullName
+				banMap[tk.Key] = ban
+				taskMap[tk.Key] = tk
 			}
 			cols = append(cols, cell)
 
@@ -130,8 +130,8 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 					cell += taskDesc
 				}
 
-				banMap[tk.Key] = ban.folder
-				taskMap[tk.Key] = tk.FullName
+				banMap[tk.Key] = ban
+				taskMap[tk.Key] = tk
 			}
 			cols = append(cols, cell)
 
@@ -212,4 +212,16 @@ func getDeadlineType(deadline string) string {
 	}
 
 	return kt.MONTH + ":" + deadline[0:2]
+}
+
+func getBan(kanban Kanban, prefix string) Ban {
+	var result Ban
+
+	for _, ban := range kanban.bans {
+		if ban.prefix == prefix {
+			result = ban
+		}
+	}
+
+	return result
 }

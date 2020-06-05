@@ -18,7 +18,7 @@ func TestKanSpec(t *testing.T) {
 		t.Errorf("Failed")
 	}
 
-	if kanSpec.maxCellSize != 28 {
+	if kanSpec.maxCellSize != 33 {
 		t.Log(kanSpec.maxCellSize)
 		t.Errorf("Failed")
 	}
@@ -42,7 +42,7 @@ func TestKanSpecOwner(t *testing.T) {
 		t.Errorf("Failed")
 	}
 
-	if kanSpec.maxCellSize != 28 {
+	if kanSpec.maxCellSize != 33 {
 		t.Log(kanSpec.maxCellSize)
 		t.Errorf("Failed")
 	}
@@ -61,16 +61,16 @@ func TestKanSpecMap(t *testing.T) {
 
 	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
 
-	var taskMap map[string]string = kanSpec.taskMap
-	var banMap map[string]string = kanSpec.banMap
+	var taskMap map[string]kt.Task = kanSpec.taskMap
+	var banMap map[string]Ban = kanSpec.banMap
 
-	if taskMap["t1"] != "AY-H-ProjectA-0531-doSth.md" {
+	if taskMap["t1"].FullName != "AY-H-ProjectA-0531-doSth.md" {
 		t.Log(taskMap["t1"])
 		t.Errorf("Failed")
 		t.Log(taskMap)
 	}
 
-	if banMap["t1"] != "01-Todo" {
+	if banMap["t1"].folder != "01-Todo" {
 		t.Log(banMap["t1"])
 		t.Errorf("Failed")
 		t.Log(banMap)
@@ -113,6 +113,25 @@ func TestDeadlineType(t *testing.T) {
 		t.Log(dl)
 		t.Errorf("Failed")
 	}
+}
+
+func TestGetBan(t *testing.T) {
+	var folderPath = ".././unittest/myTasks"
+	var kanban Kanban = BuildKanban(folderPath)
+	var ban Ban = getBan(kanban, "i")
+
+	if ban.folder != "02-Doing" {
+		t.Log(ban)
+		t.Errorf("Failed")
+	}
+
+	ban = getBan(kanban, "ii")
+
+	if ban.folder == "nil" {
+		t.Log(ban.folder)
+		t.Errorf("Failed")
+	}
+
 }
 
 func TestKan(t *testing.T) {
