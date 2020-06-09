@@ -26,12 +26,12 @@ func ChangeTask(kanSpec KanSpec, taskKey string, taskItemStr string, changeConte
 	return result
 }
 
-func ChangeBan(kanban Kanban, kanSpec KanSpec, taskKey string, banStr string) ChangeSpec {
+func ChangeBan(kanban Kanban, kanSpec KanSpec, taskKey string, prefix string) ChangeSpec {
 	var result ChangeSpec
 
 	var originTask = kanSpec.taskMap[taskKey]
 	var originBan = kanSpec.banMap[taskKey]
-	var changedBan Ban = getBan(kanban, banStr)
+	var changedBan Ban = getBan(kanban, prefix)
 	result.originPath = originBan.folder + "/" + originTask.FullName
 	result.changedPath = changedBan.folder + "/" + originTask.FullName
 

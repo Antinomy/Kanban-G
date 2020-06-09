@@ -48,3 +48,27 @@ func TestReadConfig(t *testing.T) {
 		t.Errorf("Failed")
 	}
 }
+
+func TestMoveFile(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+
+	var existFile = "03-Hold/ZZ-H-ProjectZ-2020-doSth.md"
+
+	var renameFile = "03-Hold/AA-H-ProjectZ-2020-doSth.md"
+
+	var err = moveFile(folderPath, existFile, renameFile)
+
+	if err != nil {
+
+		t.Errorf("Failed")
+	}
+
+	err = moveFile(folderPath, renameFile, existFile)
+
+	if err != nil {
+
+		t.Errorf("Failed")
+	}
+
+}

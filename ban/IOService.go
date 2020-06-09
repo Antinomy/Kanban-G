@@ -59,3 +59,8 @@ func readJsonConfig(filePath string) kc.Jconf {
 
 	return result
 }
+
+func moveFile(rootPath string, existPath string, newPath string) error {
+	var result error = os.Rename(rootPath+"/"+existPath, rootPath+"/"+newPath)
+	return result
+}
