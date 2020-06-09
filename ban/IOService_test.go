@@ -60,14 +60,21 @@ func TestMoveFile(t *testing.T) {
 	var err = moveFile(folderPath, existFile, renameFile)
 
 	if err != nil {
-
+		t.Log(err)
 		t.Errorf("Failed")
 	}
 
 	err = moveFile(folderPath, renameFile, existFile)
 
 	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
 
+	err = moveFile(folderPath, renameFile+"9999", existFile)
+
+	if err == nil {
+		t.Log(err)
 		t.Errorf("Failed")
 	}
 

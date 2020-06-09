@@ -47,3 +47,32 @@ func TestChangeBan(t *testing.T) {
 		t.Errorf("Failed")
 	}
 }
+
+func TestChange(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+	var kanban Kanban = BuildKanban(folderPath)
+	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
+
+	var changeSpec ChangeSpec = ChangeBan(kanban, kanSpec, "h2", "i")
+
+	var err = ChangeAny(folderPath, changeSpec)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+	kanban = BuildKanban(folderPath)
+	kanSpec = getKanSpec(kanban, kt.OWNER)
+
+	changeSpec = ChangeBan(kanban, kanSpec, "i4", "h")
+
+	err = ChangeAny(folderPath, changeSpec)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+}

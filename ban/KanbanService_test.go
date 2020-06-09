@@ -47,7 +47,7 @@ func TestKanSpecOwner(t *testing.T) {
 		t.Errorf("Failed")
 	}
 
-	if len(kanSpec.rows) != 4 {
+	if len(kanSpec.rows) != 5 {
 		t.Log(kanSpec.rows)
 		t.Errorf("Failed")
 	}
