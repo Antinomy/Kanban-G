@@ -64,7 +64,8 @@ func moveFile(rootPath string, existPath string, newPath string) error {
 	existFile := rootPath + "/" + existPath
 	changeFile := rootPath + "/" + newPath
 
-	log.Println("changing file : [", existFile, "] to [", changeFile, "]")
+	fmt.Println("Changing file : [", existFile, "]")
+	fmt.Println("           To : [", changeFile, "]")
 
 	var result error = os.Rename(existFile, changeFile)
 

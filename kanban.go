@@ -20,7 +20,10 @@ func main() {
 		cmd    string
 		param1 string
 		param2 string
+		param3 string
 	)
+
+	var usingTaskItem kt.TaskItem = kt.UNKNOWN
 
 	// fmt.Scanln(&cmd, &param1, &param2)
 	input := bufio.NewScanner(os.Stdin)
@@ -42,7 +45,7 @@ func main() {
 
 		if strings.ToLower(cmd) == "rekan" || strings.ToLower(cmd) == "r" || len(cmds) <= 1 {
 			kanban = kb.BuildKanban(path)
-			refreshScreen(kanban, kt.UNKNOWN)
+			refreshScreen(kanban, usingTaskItem)
 			continue
 		}
 
@@ -60,8 +63,44 @@ func main() {
 
 		if strings.ToLower(cmd) == "kan" || strings.ToLower(cmd) == "k" {
 			var taskItem kt.TaskItem = kt.GetTaskItem(param1)
-			refreshScreen(kanban, taskItem)
+			usingTaskItem = taskItem
+			refreshScreen(kanban, usingTaskItem)
+			continue
 		}
+
+		if strings.ToLower(cmd) == "changeban" || strings.ToLower(cmd) == "cb" {
+			var key = param1
+			var banPrefix = param2
+			var changeSpec kb.ChangeSpec = kb.ChangeBan(kanban, usingTaskItem, key, banPrefix)
+
+			var err = kb.ChangeOne(path, changeSpec)
+
+			if err != nil {
+				println(err)
+			}
+
+			continue
+		}
+
+		if len(cmds) >= 4 {
+			param3 = cmds[3]
+
+			if strings.ToLower(cmd) == "changetask" || strings.ToLower(cmd) == "ct" {
+				var key = param1
+				var newTaskItem = param2
+				var changeContent = param3
+
+				var changeSpec = kb.ChangeTask(kanban, usingTaskItem, key, newTaskItem, changeContent)
+				var err = kb.ChangeOne(path, changeSpec)
+
+				if err != nil {
+					println(err)
+				}
+
+				continue
+			}
+		}
+
 	}
 
 }

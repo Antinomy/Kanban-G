@@ -4,8 +4,10 @@ import (
 	kt "kanban/task"
 )
 
-func ChangeTask(kanSpec KanSpec, taskKey string, taskItemStr string, changeContext string) ChangeSpec {
+func ChangeTask(kanban Kanban, existTaskItem kt.TaskItem, taskKey string, taskItemStr string, changeContext string) ChangeSpec {
 	var result ChangeSpec
+
+	var kanSpec KanSpec = getKanSpec(kanban, existTaskItem)
 
 	var taskItem kt.TaskItem = kt.GetTaskItem(taskItemStr)
 	var originTask = kanSpec.taskMap[taskKey]
@@ -26,9 +28,10 @@ func ChangeTask(kanSpec KanSpec, taskKey string, taskItemStr string, changeConte
 	return result
 }
 
-func ChangeBan(kanban Kanban, kanSpec KanSpec, taskKey string, prefix string) ChangeSpec {
+func ChangeBan(kanban Kanban, taskItem kt.TaskItem, taskKey string, prefix string) ChangeSpec {
 	var result ChangeSpec
 
+	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
 	var originTask = kanSpec.taskMap[taskKey]
 	var originBan = kanSpec.banMap[taskKey]
 	var changedBan Ban = getBan(kanban, prefix)

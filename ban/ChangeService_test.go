@@ -11,9 +11,7 @@ func TestChangeTask(t *testing.T) {
 
 	var kanban Kanban = BuildKanban(folderPath)
 
-	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
-
-	var changeSpec ChangeSpec = ChangeTask(kanSpec, "t1", "o", "ZZ")
+	var changeSpec ChangeSpec = ChangeTask(kanban, kt.OWNER, "t1", "o", "ZZ")
 
 	if changeSpec.originPath != "01-Todo/AY-H-ProjectA-0531-doSth.md" {
 		t.Log(changeSpec)
@@ -33,9 +31,7 @@ func TestChangeBan(t *testing.T) {
 
 	var kanban Kanban = BuildKanban(folderPath)
 
-	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
-
-	var changeSpec ChangeSpec = ChangeBan(kanban, kanSpec, "t1", "i")
+	var changeSpec ChangeSpec = ChangeBan(kanban, kt.OWNER, "t1", "i")
 
 	if changeSpec.originPath != "01-Todo/AY-H-ProjectA-0531-doSth.md" {
 		t.Log(changeSpec)
@@ -52,11 +48,10 @@ func TestChange(t *testing.T) {
 
 	var folderPath = ".././unittest/myTasks"
 	var kanban Kanban = BuildKanban(folderPath)
-	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
 
 	// target file 03-Hold/ZZ-H-ProjectZ-2020-doSth.md
 	// change ban to 02-Doing
-	var changeSpec ChangeSpec = ChangeBan(kanban, kanSpec, "h2", "i")
+	var changeSpec ChangeSpec = ChangeBan(kanban, kt.OWNER, "h2", "i")
 
 	var err = ChangeOne(folderPath, changeSpec)
 
@@ -66,10 +61,9 @@ func TestChange(t *testing.T) {
 	}
 
 	kanban = BuildKanban(folderPath)
-	kanSpec = getKanSpec(kanban, kt.OWNER)
 
 	// change ban back to 03-Hold
-	changeSpec = ChangeBan(kanban, kanSpec, "i4", "h")
+	changeSpec = ChangeBan(kanban, kt.OWNER, "i4", "h")
 
 	err = ChangeOne(folderPath, changeSpec)
 
@@ -79,10 +73,9 @@ func TestChange(t *testing.T) {
 	}
 
 	kanban = BuildKanban(folderPath)
-	kanSpec = getKanSpec(kanban, kt.OWNER)
 
 	// change task owner to AY
-	changeSpec = ChangeTask(kanSpec, "h2", "o", "AY")
+	changeSpec = ChangeTask(kanban, kt.OWNER, "h2", "o", "AY")
 	err = ChangeOne(folderPath, changeSpec)
 
 	if err != nil {
@@ -91,10 +84,9 @@ func TestChange(t *testing.T) {
 	}
 
 	kanban = BuildKanban(folderPath)
-	kanSpec = getKanSpec(kanban, kt.OWNER)
 
 	// change task owner back to ZZ
-	changeSpec = ChangeTask(kanSpec, "h2", "o", "ZZ")
+	changeSpec = ChangeTask(kanban, kt.OWNER, "h2", "o", "ZZ")
 	err = ChangeOne(folderPath, changeSpec)
 
 	if err != nil {
