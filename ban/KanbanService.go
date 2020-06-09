@@ -155,7 +155,8 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 			continue
 		}
 
-		result.hearders = append(result.hearders, ban.name)
+		var banHeader string = ban.name + " [" + ban.prefix + "]"
+		result.hearders = append(result.hearders, banHeader)
 
 		for _, tk := range ban.tasks {
 
