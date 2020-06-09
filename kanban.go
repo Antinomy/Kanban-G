@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"kanban/ban"
 	kb "kanban/ban"
 	kt "kanban/task"
+	"log"
 	"os"
 	"strings"
 )
@@ -32,6 +34,12 @@ func main() {
 		//控制循环退出
 		if input.Text() == "exit" || input.Text() == "e" {
 			break
+		}
+
+		//控制循环退出
+		if input.Text() == "help" || input.Text() == "h" {
+			printHelp()
+			continue
 		}
 
 		// default
@@ -111,4 +119,21 @@ func refreshScreen(kanban ban.Kanban, item kt.TaskItem) {
 	kb.Kan(kanban, item)
 	print("Input Cmd $ ")
 
+}
+
+func printHelp() {
+	file, err := os.Open("README.md")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
+	print("Input Cmd $ ")
 }
