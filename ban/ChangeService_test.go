@@ -54,9 +54,11 @@ func TestChange(t *testing.T) {
 	var kanban Kanban = BuildKanban(folderPath)
 	var kanSpec KanSpec = getKanSpec(kanban, kt.OWNER)
 
+	// target file 03-Hold/ZZ-H-ProjectZ-2020-doSth.md
+	// change ban to 02-Doing
 	var changeSpec ChangeSpec = ChangeBan(kanban, kanSpec, "h2", "i")
 
-	var err = ChangeAny(folderPath, changeSpec)
+	var err = ChangeOne(folderPath, changeSpec)
 
 	if err != nil {
 		t.Log(err)
@@ -66,9 +68,34 @@ func TestChange(t *testing.T) {
 	kanban = BuildKanban(folderPath)
 	kanSpec = getKanSpec(kanban, kt.OWNER)
 
+	// change ban back to 03-Hold
 	changeSpec = ChangeBan(kanban, kanSpec, "i4", "h")
 
-	err = ChangeAny(folderPath, changeSpec)
+	err = ChangeOne(folderPath, changeSpec)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+	kanban = BuildKanban(folderPath)
+	kanSpec = getKanSpec(kanban, kt.OWNER)
+
+	// change task owner to AY
+	changeSpec = ChangeTask(kanSpec, "h2", "o", "AY")
+	err = ChangeOne(folderPath, changeSpec)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+	kanban = BuildKanban(folderPath)
+	kanSpec = getKanSpec(kanban, kt.OWNER)
+
+	// change task owner back to ZZ
+	changeSpec = ChangeTask(kanSpec, "h2", "o", "ZZ")
+	err = ChangeOne(folderPath, changeSpec)
 
 	if err != nil {
 		t.Log(err)

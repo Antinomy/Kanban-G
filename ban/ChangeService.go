@@ -38,7 +38,7 @@ func ChangeBan(kanban Kanban, kanSpec KanSpec, taskKey string, prefix string) Ch
 	return result
 }
 
-func ChangeAny(folderPath string, changeSpec ChangeSpec) error {
+func ChangeOne(folderPath string, changeSpec ChangeSpec) error {
 	var result error = moveFile(folderPath, changeSpec.originPath, changeSpec.changedPath)
 	return result
 }

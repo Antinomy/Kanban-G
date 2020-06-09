@@ -61,6 +61,12 @@ func readJsonConfig(filePath string) kc.Jconf {
 }
 
 func moveFile(rootPath string, existPath string, newPath string) error {
-	var result error = os.Rename(rootPath+"/"+existPath, rootPath+"/"+newPath)
+	existFile := rootPath + "/" + existPath
+	changeFile := rootPath + "/" + newPath
+
+	log.Println("changing file : [", existFile, "] to [", changeFile, "]")
+
+	var result error = os.Rename(existFile, changeFile)
+
 	return result
 }
