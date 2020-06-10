@@ -92,6 +92,28 @@ func main() {
 
 		}
 
+		// change ban by ban key
+		if len(cmds) == 2 {
+			var banKey = cmd
+			var taskKey = param1
+			var ban kb.Ban = kb.GetBan(kanban, banKey)
+
+			if len(ban.Name) == 0 {
+				continue
+			}
+
+			var changeSpec kb.ChangeSpec = kb.ChangeBan(kanban, usingTaskItem, taskKey, banKey)
+
+			var err = kb.ChangeOne(path, changeSpec)
+
+			if err != nil {
+				println(err)
+			}
+
+			continue
+		}
+
+		// change ban by standard cmd
 		if strings.ToLower(cmd) == "changeban" || strings.ToLower(cmd) == "cb" {
 			var key = param1
 			var banPrefix = param2

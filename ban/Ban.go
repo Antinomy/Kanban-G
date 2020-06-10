@@ -6,7 +6,7 @@ import (
 
 // Ban entiy
 type Ban struct {
-	name             string
+	Name             string
 	folder           string
 	tasks            []kt.Task
 	supportShortMode bool

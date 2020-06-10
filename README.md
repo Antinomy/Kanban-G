@@ -20,7 +20,7 @@ j = case "PROJECT", "PRJ", "PJ", "J"
 Input Cmd $ k [TaskItem] short / s
 
 # change task
-Input Cmd $  changetask / ct [targetKey] [TaskItem] context  
+Input Cmd $  changetask / ct [taskKey] [TaskItem] context  
 e.g.   
 ct t1 o AY  
 ct t2 i H  
@@ -28,11 +28,22 @@ ct t3 d 0605
 ct t4 j [Travel]  
 
 # change ban
-Input Cmd $ changeban / cb [targetKey] [banPrefix]  
+## way1:
+Input Cmd $ changeban / cb [taskKey] [banPrefix]  
 e.g.  
 cb t1 i  
 cb t2 h  
 cb t3 d  
+
+## way2:
+Input Cmd $ [banKey] [taskKey]
+banKey = banName or banPrefix
+e.g
+done t1
+d t2
+hold t3
+h t4
+
 
 # create ban task
 Input Cmd $ create / c taskname [banPrefix]

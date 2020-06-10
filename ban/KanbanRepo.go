@@ -43,7 +43,7 @@ func BuildKanban(folderPath string) Kanban {
 		var ban Ban
 		var fullBanPath string = folderPath + "/" + banConf.Folder
 		ban.folder = banConf.Folder
-		ban.name = banConf.Name
+		ban.Name = banConf.Name
 		ban.supportShortMode = banConf.SupportShortMode
 		ban.prefix = banConf.Prefix
 

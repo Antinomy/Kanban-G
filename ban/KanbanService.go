@@ -155,7 +155,7 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 			continue
 		}
 
-		var banHeader string = ban.name + " [" + ban.prefix + "]"
+		var banHeader string = ban.Name + " [" + ban.prefix + "]"
 		result.hearders = append(result.hearders, banHeader)
 
 		for _, tk := range ban.tasks {
@@ -215,12 +215,18 @@ func getDeadlineType(deadline string) string {
 	return kt.MONTH + ":" + deadline[0:2]
 }
 
-func getBan(kanban Kanban, prefix string) Ban {
+func GetBan(kanban Kanban, banKey string) Ban {
 	var result Ban
 
 	for _, ban := range kanban.bans {
-		if ban.prefix == prefix {
+		if ban.prefix == banKey {
 			result = ban
+			return result
+		}
+
+		if strings.EqualFold(ban.Name, banKey) {
+			result = ban
+			return result
 		}
 	}
 

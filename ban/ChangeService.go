@@ -36,7 +36,7 @@ func ChangeBan(kanban Kanban, taskItem kt.TaskItem, taskKey string, prefix strin
 	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
 	var originTask = kanSpec.taskMap[taskKey]
 	var originBan = kanSpec.banMap[taskKey]
-	var changedBan Ban = getBan(kanban, prefix)
+	var changedBan Ban = GetBan(kanban, prefix)
 	result.originPath = originBan.folder + "/" + originTask.FullName
 	result.changedPath = changedBan.folder + "/" + originTask.FullName
 
@@ -58,7 +58,7 @@ func CreateBanTask(kanban Kanban, newTask string, prefix string) (bool, string) 
 		return result, "NoPath"
 	}
 
-	var createInBan Ban = getBan(kanban, prefix)
+	var createInBan Ban = GetBan(kanban, prefix)
 	var fullFilePath = kanban.rootPath + "/" + createInBan.folder + "/" + newTask
 
 	var err = createFile(fullFilePath)

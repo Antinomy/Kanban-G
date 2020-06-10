@@ -1,6 +1,7 @@
 package ban
 
 import (
+	"fmt"
 	kt "kanban/task"
 	"testing"
 )
@@ -118,17 +119,30 @@ func TestDeadlineType(t *testing.T) {
 func TestGetBan(t *testing.T) {
 	var folderPath = ".././unittest/myTasks"
 	var kanban Kanban = BuildKanban(folderPath)
-	var ban Ban = getBan(kanban, "i")
+	var ban Ban
 
+	ban = GetBan(kanban, "i")
 	if ban.folder != "02-Doing" {
 		t.Log(ban)
 		t.Errorf("Failed")
 	}
 
-	ban = getBan(kanban, "ii")
+	ban = GetBan(kanban, "doing")
+	if ban.folder != "02-Doing" {
+		t.Log(ban)
+		t.Errorf("Failed")
+	}
 
-	if ban.folder == "nil" {
-		t.Log(ban.folder)
+	ban = GetBan(kanban, "dOinG")
+	if ban.folder != "02-Doing" {
+		t.Log(ban)
+		t.Errorf("Failed")
+	}
+
+	ban = GetBan(kanban, "xx")
+	fmt.Println("ban : ", ban)
+	if len(ban.Name) != 0 {
+		t.Log(len(ban.Name))
 		t.Errorf("Failed")
 	}
 
