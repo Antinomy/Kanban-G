@@ -37,17 +37,17 @@ cb t3 d
 
 ## way2:
 Input Cmd $ [banKey] [taskKey]
-banKey = banName or banPrefix
-e.g
-done t1
-d t2
-hold t3
-h t4
+banKey = banName or banPrefix  
+e.g  
+done t1  
+d t2  
+hold t3  
+h t4 
 
 
 # create ban task
-Input Cmd $ create / c taskname [banPrefix]
-e.g.
-c ZZ-H-ProjectZ-9999-doSth.md 
-c ZZ-H-ProjectZ-9999-doSth.md t
+Input Cmd $ create / c taskname [banPrefix]  
+e.g.  
+c ZZ-H-ProjectZ-9999-doSth.md   
+c ZZ-H-ProjectZ-9999-doSth.md t  
  
