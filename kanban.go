@@ -27,16 +27,15 @@ func main() {
 
 	var usingTaskItem kt.TaskItem = kt.UNKNOWN
 
-	// fmt.Scanln(&cmd, &param1, &param2)
 	input := bufio.NewScanner(os.Stdin)
 
 	for input.Scan() {
-		//控制循环退出
+		// exit
 		if input.Text() == "exit" || input.Text() == "e" {
 			break
 		}
 
-		//控制循环退出
+		// help
 		if input.Text() == "help" || input.Text() == "h" {
 			printHelp()
 			continue
@@ -51,19 +50,25 @@ func main() {
 			cmd = cmds[0]
 		}
 
-		if strings.ToLower(cmd) == "rekan" || strings.ToLower(cmd) == "r" || len(cmds) <= 1 {
-			kanban = kb.BuildKanban(path)
-			refreshScreen(kanban, usingTaskItem)
-			continue
-		}
-
 		if len(cmds) >= 2 {
 			param1 = cmds[1]
 		}
 
 		if len(cmds) >= 3 {
 			param2 = cmds[2]
+		}
 
+		if len(cmds) >= 4 {
+			param3 = cmds[3]
+		}
+
+		if strings.ToLower(cmd) == "rekan" || strings.ToLower(cmd) == "r" || len(cmds) <= 1 {
+			kanban = kb.BuildKanban(path)
+			refreshScreen(kanban, usingTaskItem)
+			continue
+		}
+
+		if len(cmds) >= 3 {
 			if strings.ToLower(param2) == "short" || strings.ToLower(param2) == "s" {
 				kanban.IsShortMode = true
 			}
@@ -74,6 +79,17 @@ func main() {
 			usingTaskItem = taskItem
 			refreshScreen(kanban, usingTaskItem)
 			continue
+		}
+
+		if strings.ToLower(cmd) == "create" || strings.ToLower(cmd) == "c" {
+			var task = param1
+			var banPrefix = "t"
+			if len(cmds) >= 3 {
+				banPrefix = param2
+			}
+			kb.CreateBanTask(kanban, task, banPrefix)
+			continue
+
 		}
 
 		if strings.ToLower(cmd) == "changeban" || strings.ToLower(cmd) == "cb" {
@@ -91,8 +107,6 @@ func main() {
 		}
 
 		if len(cmds) >= 4 {
-			param3 = cmds[3]
-
 			if strings.ToLower(cmd) == "changetask" || strings.ToLower(cmd) == "ct" {
 				var key = param1
 				var newTaskItem = param2

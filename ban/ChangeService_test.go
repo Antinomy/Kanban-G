@@ -2,6 +2,7 @@ package ban
 
 import (
 	kt "kanban/task"
+	"os"
 	"testing"
 )
 
@@ -88,6 +89,29 @@ func TestChange(t *testing.T) {
 	// change task owner back to ZZ
 	changeSpec = ChangeTask(kanban, kt.OWNER, "h2", "o", "ZZ")
 	err = ChangeOne(folderPath, changeSpec)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+}
+
+func TestCreareBanTask(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+	var newTask = "ZZ-H-ProjectZ-9999-doSth.md"
+
+	var kanban Kanban = BuildKanban(folderPath)
+
+	result, fullFilePath := CreateBanTask(kanban, newTask, "t")
+
+	if result != true {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+
+	err := os.Remove(fullFilePath)
 
 	if err != nil {
 		t.Log(err)

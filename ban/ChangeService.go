@@ -1,7 +1,9 @@
 package ban
 
 import (
+	"fmt"
 	kt "kanban/task"
+	"log"
 )
 
 func ChangeTask(kanban Kanban, existTaskItem kt.TaskItem, taskKey string, taskItemStr string, changeContext string) ChangeSpec {
@@ -44,4 +46,27 @@ func ChangeBan(kanban Kanban, taskItem kt.TaskItem, taskKey string, prefix strin
 func ChangeOne(folderPath string, changeSpec ChangeSpec) error {
 	var result error = moveFile(folderPath, changeSpec.originPath, changeSpec.changedPath)
 	return result
+}
+
+func CreateBanTask(kanban Kanban, newTask string, prefix string) (bool, string) {
+
+	var taskService kt.TaskService = new(kt.FileWay)
+	var result bool = taskService.IsATask(newTask)
+
+	if !result {
+		fmt.Println("Task Format Error: ", newTask, ",  e.g ZZ-H-ProjectZ-9999-doSth.md")
+		return result, "NoPath"
+	}
+
+	var createInBan Ban = getBan(kanban, prefix)
+	var fullFilePath = kanban.rootPath + "/" + createInBan.folder + "/" + newTask
+
+	var err = createFile(fullFilePath)
+
+	if err != nil {
+		log.Println(err)
+		result = false
+	}
+
+	return result, fullFilePath
 }

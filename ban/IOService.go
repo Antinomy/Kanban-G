@@ -71,3 +71,12 @@ func moveFile(rootPath string, existPath string, newPath string) error {
 
 	return result
 }
+
+func createFile(fullFilePath string) error {
+
+	fmt.Println("Creating file : [", fullFilePath, "]")
+
+	_, err := os.Create(fullFilePath)
+
+	return err
+}

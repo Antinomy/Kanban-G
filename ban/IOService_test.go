@@ -2,6 +2,7 @@ package ban
 
 import (
 	kc "kanban/conf"
+	"os"
 	"testing"
 )
 
@@ -74,6 +75,29 @@ func TestMoveFile(t *testing.T) {
 	err = moveFile(folderPath, renameFile+"9999", existFile)
 
 	if err == nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+}
+
+func TestCreateFile(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+
+	var newFile = "ZZ-H-ProjectZ-9999-doSth.md"
+
+	var fullFilePath = folderPath + "/01-Todo/" + newFile
+	var err = createFile(fullFilePath)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+	err = os.Remove(fullFilePath)
+
+	if err != nil {
 		t.Log(err)
 		t.Errorf("Failed")
 	}

@@ -34,5 +34,9 @@ cb t1 i
 cb t2 h  
 cb t3 d  
 
-
+# create ban task
+Input Cmd $ create / c taskname [banPrefix]
+e.g.
+c ZZ-H-ProjectZ-9999-doSth.md 
+c ZZ-H-ProjectZ-9999-doSth.md t
  
