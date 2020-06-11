@@ -23,6 +23,7 @@ const (
 	CHANGEBAN  CmdType = "CHANGEBAN"
 	CHANGETASK CmdType = "CHANGETASK"
 	SHORTMODE  CmdType = "SHORTMODE"
+	OPEN       CmdType = "OPEN"
 
 	UNKNOWN CmdType = "UNKNOWN"
 )
@@ -80,6 +81,9 @@ func buildCmd(cmdstr string) Cmds {
 
 	case "shortmode", "short", "s":
 		result.cmdType = SHORTMODE
+
+	case "open", "o":
+		result.cmdType = OPEN
 
 	default:
 		result.cmdType = UNKNOWN

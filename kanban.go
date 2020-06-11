@@ -43,6 +43,14 @@ CommandMode:
 			printHelp()
 			continue
 
+		case OPEN:
+			err := kb.OpenTask(kanban, cmds.param1, usingTaskItem)
+
+			if err != nil {
+				println(err)
+			}
+			continue
+
 		case REKAN:
 			kanban = kb.BuildKanban(path)
 			kanban.IsShortMode = IsShortMode
