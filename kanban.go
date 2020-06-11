@@ -18,90 +18,68 @@ func main() {
 
 	refreshScreen(kanban, kt.UNKNOWN)
 
-	var (
-		cmd    string
-		param1 string
-		param2 string
-		param3 string
-	)
-
 	var usingTaskItem kt.TaskItem = kt.UNKNOWN
 
 	input := bufio.NewScanner(os.Stdin)
 
+CommandMode:
 	for input.Scan() {
-		// exit
-		if input.Text() == "exit" || input.Text() == "e" {
-			break
-		}
-
-		// help
-		if input.Text() == "help" || input.Text() == "h" {
-			printHelp()
-			continue
-		}
-
 		// default
 		kanban.IsShortMode = false
 
-		var cmds []string = strings.Split(input.Text(), " ")
+		var cmds Cmds = buildCmd(input.Text())
 
-		if len(cmds) >= 1 {
-			cmd = cmds[0]
-		}
-
-		if len(cmds) >= 2 {
-			param1 = cmds[1]
-		}
-
-		if len(cmds) >= 3 {
-			param2 = cmds[2]
-		}
-
-		if len(cmds) >= 4 {
-			param3 = cmds[3]
-		}
-
-		if strings.ToLower(cmd) == "rekan" || strings.ToLower(cmd) == "r" || len(cmds) <= 1 {
-			kanban = kb.BuildKanban(path)
-			refreshScreen(kanban, usingTaskItem)
-			continue
-		}
-
-		if len(cmds) >= 3 {
-			if strings.ToLower(param2) == "short" || strings.ToLower(param2) == "s" {
+		if cmds.length >= 3 {
+			if strings.ToLower(cmds.param2) == "short" || strings.ToLower(cmds.param2) == "s" {
 				kanban.IsShortMode = true
 			}
 		}
 
-		if strings.ToLower(cmd) == "kan" || strings.ToLower(cmd) == "k" {
-			var taskItem kt.TaskItem = kt.GetTaskItem(param1)
+		switch cmds.cmdType {
+		case EXIT:
+			break CommandMode
+
+		case HELP:
+			printHelp()
+			continue
+
+		case REKAN:
+			kanban = kb.BuildKanban(path)
+			refreshScreen(kanban, usingTaskItem)
+			continue
+
+		case KAN:
+			var taskItem kt.TaskItem = kt.GetTaskItem(cmds.param1)
 			usingTaskItem = taskItem
 			refreshScreen(kanban, usingTaskItem)
 			continue
-		}
 
-		if strings.ToLower(cmd) == "create" || strings.ToLower(cmd) == "c" {
-			var task = param1
+		case CREATE:
+			var task = cmds.param1
 			var banPrefix = "t"
-			if len(cmds) >= 3 {
-				banPrefix = param2
+			if cmds.length >= 3 {
+				banPrefix = cmds.param2
 			}
 			kb.CreateBanTask(kanban, task, banPrefix)
 			continue
 
-		}
+		case CHANGETASK:
+			var key = cmds.param1
+			var newTaskItem = cmds.param2
+			var changeContent = cmds.param3
 
-		// change ban by ban key
-		if len(cmds) == 2 {
-			var banKey = cmd
-			var taskKey = param1
-			var ban kb.Ban = kb.GetBan(kanban, banKey)
+			var changeSpec = kb.ChangeTask(kanban, usingTaskItem, key, newTaskItem, changeContent)
+			var err = kb.ChangeOne(path, changeSpec)
 
-			if len(ban.Name) == 0 {
-				continue
+			if err != nil {
+				println(err)
 			}
 
+			continue
+
+		case CHANGEBAN:
+			var taskKey = cmds.param1
+			var banKey = cmds.param2
 			var changeSpec kb.ChangeSpec = kb.ChangeBan(kanban, usingTaskItem, taskKey, banKey)
 
 			var err = kb.ChangeOne(path, changeSpec)
@@ -111,30 +89,20 @@ func main() {
 			}
 
 			continue
-		}
 
-		// change ban by standard cmd
-		if strings.ToLower(cmd) == "changeban" || strings.ToLower(cmd) == "cb" {
-			var key = param1
-			var banPrefix = param2
-			var changeSpec kb.ChangeSpec = kb.ChangeBan(kanban, usingTaskItem, key, banPrefix)
+		default:
+			// change ban by ban key
+			if cmds.length == 2 {
+				var banKey = cmds.cmd
+				var taskKey = cmds.param1
+				var ban kb.Ban = kb.GetBan(kanban, banKey)
 
-			var err = kb.ChangeOne(path, changeSpec)
+				if len(ban.Name) == 0 {
+					continue
+				}
 
-			if err != nil {
-				println(err)
-			}
+				var changeSpec kb.ChangeSpec = kb.ChangeBan(kanban, usingTaskItem, taskKey, banKey)
 
-			continue
-		}
-
-		if len(cmds) >= 4 {
-			if strings.ToLower(cmd) == "changetask" || strings.ToLower(cmd) == "ct" {
-				var key = param1
-				var newTaskItem = param2
-				var changeContent = param3
-
-				var changeSpec = kb.ChangeTask(kanban, usingTaskItem, key, newTaskItem, changeContent)
 				var err = kb.ChangeOne(path, changeSpec)
 
 				if err != nil {
@@ -143,6 +111,7 @@ func main() {
 
 				continue
 			}
+
 		}
 
 	}
