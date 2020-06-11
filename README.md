@@ -17,7 +17,7 @@ d = case "DEADLINE", "DL", "D"
 j = case "PROJECT", "PRJ", "PJ", "J"  
 
 # kan short mode
-Input Cmd $ k [TaskItem] short / s
+Input Cmd $ shortmode / short / s
 
 # change task
 Input Cmd $  changetask / ct [taskKey] [TaskItem] context  
@@ -51,3 +51,8 @@ e.g.
 c ZZ-H-ProjectZ-9999-doSth.md   
 c ZZ-H-ProjectZ-9999-doSth.md t  
  
+# open task 
+ Input Cmd $ open / o [taskKey]
+ e.g  
+ open t1
+ o t2
