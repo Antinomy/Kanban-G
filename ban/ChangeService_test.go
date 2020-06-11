@@ -119,3 +119,19 @@ func TestCreareBanTask(t *testing.T) {
 	}
 
 }
+
+func TestOpenTask(t *testing.T) {
+
+	var folderPath = ".././unittest/myTasks"
+	var newTask = "t1"
+
+	var kanban Kanban = BuildKanban(folderPath)
+
+	err := OpenTask(kanban, newTask, kt.OWNER)
+
+	if err != nil {
+		t.Log(err)
+		t.Errorf("Failed")
+	}
+
+}

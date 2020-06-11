@@ -8,7 +8,6 @@ import (
 	kt "kanban/task"
 	"log"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -22,22 +21,23 @@ func main() {
 
 	input := bufio.NewScanner(os.Stdin)
 
+	var IsShortMode bool = false
+
 CommandMode:
 	for input.Scan() {
 		// default
-		kanban.IsShortMode = false
+		kanban.IsShortMode = IsShortMode
 
 		var cmds Cmds = buildCmd(input.Text())
-
-		if cmds.length >= 3 {
-			if strings.ToLower(cmds.param2) == "short" || strings.ToLower(cmds.param2) == "s" {
-				kanban.IsShortMode = true
-			}
-		}
 
 		switch cmds.cmdType {
 		case EXIT:
 			break CommandMode
+
+		case SHORTMODE:
+			IsShortMode = !IsShortMode
+			fmt.Println("ShortMode TurnOn: ", IsShortMode)
+			continue
 
 		case HELP:
 			printHelp()
@@ -45,7 +45,8 @@ CommandMode:
 
 		case REKAN:
 			kanban = kb.BuildKanban(path)
-			refreshScreen(kanban, usingTaskItem)
+			kanban.IsShortMode = IsShortMode
+			refreshScreen(kanban, kt.UNKNOWN)
 			continue
 
 		case KAN:

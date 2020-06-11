@@ -4,6 +4,9 @@ import (
 	"fmt"
 	kt "kanban/task"
 	"log"
+	"os"
+	"os/exec"
+	"path/filepath"
 )
 
 func ChangeTask(kanban Kanban, existTaskItem kt.TaskItem, taskKey string, taskItemStr string, changeContext string) ChangeSpec {
@@ -69,4 +72,31 @@ func CreateBanTask(kanban Kanban, newTask string, prefix string) (bool, string) 
 	}
 
 	return result, fullFilePath
+}
+
+func OpenTask(kanban Kanban, taskKey string, taskItem kt.TaskItem) error {
+	var kanSpec KanSpec = getKanSpec(kanban, taskItem)
+	var originTask = kanSpec.taskMap[taskKey]
+	var originBan = kanSpec.banMap[taskKey]
+
+	var fullFilePath = kanban.rootPath + "/" + originBan.folder + "/" + originTask.FullName
+
+	absPath, _ := filepath.Abs(fullFilePath)
+
+	fmt.Println(absPath)
+
+	// var vscodeCmd = "/usr/bin/open -n -b \"com.microsoft.VSCode\" --args "
+
+	cmd := exec.Command("open", "-n", "-b", "com.microsoft.VSCode", "--args", absPath)
+	cmd.Env = os.Environ()
+
+	// fmt.Println(cmd.Env)
+
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Execute Command ERROR : " + err.Error())
+	}
+
+	fmt.Println("Execute Command End.")
+	return err
 }
