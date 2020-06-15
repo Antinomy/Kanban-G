@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const autoGitCounter int = 2
+const autoGitCounter int = 3
 
 func main() {
 
@@ -179,8 +179,8 @@ func printHelp() {
 
 func lasyGit(execPath string) {
 	var lasyGitShell = execPath + "/lazyGit.sh"
-	var commitStr = "'Auto Commit Change On :" + time.Now().Format("2006-01-02 15:04:05"+"'")
-	err := kb.Exec("sh", lasyGitShell, commitStr)
+	var commitStr = "'Git Sync On : [" + time.Now().Format("2006-01-02 15:04:05"+"]'")
+	err := kb.Exec("/bin/bash", "-c", lasyGitShell+" "+commitStr)
 
 	if err != nil {
 		println(err)
