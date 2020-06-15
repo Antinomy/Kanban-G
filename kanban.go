@@ -8,7 +8,10 @@ import (
 	kt "kanban/task"
 	"log"
 	"os"
+	"time"
 )
+
+const autoGitCounter int = 2
 
 func main() {
 
@@ -22,6 +25,8 @@ func main() {
 	input := bufio.NewScanner(os.Stdin)
 
 	var IsShortMode bool = false
+
+	var gitcouter int = 1
 
 CommandMode:
 	for input.Scan() {
@@ -49,12 +54,23 @@ CommandMode:
 			if err != nil {
 				println(err)
 			}
+
+			autoGit(&gitcouter, path)
+
+			continue
+
+		case GIT:
+			lasyGit(path)
+
 			continue
 
 		case REKAN:
 			kanban = kb.BuildKanban(path)
 			kanban.IsShortMode = IsShortMode
 			refreshScreen(kanban, kt.UNKNOWN)
+
+			autoGit(&gitcouter, path)
+
 			continue
 
 		case KAN:
@@ -70,6 +86,9 @@ CommandMode:
 				banPrefix = cmds.param2
 			}
 			kb.CreateBanTask(kanban, task, banPrefix)
+
+			autoGit(&gitcouter, path)
+
 			continue
 
 		case CHANGETASK:
@@ -84,6 +103,8 @@ CommandMode:
 				println(err)
 			}
 
+			autoGit(&gitcouter, path)
+
 			continue
 
 		case CHANGEBAN:
@@ -96,6 +117,8 @@ CommandMode:
 			if err != nil {
 				println(err)
 			}
+
+			autoGit(&gitcouter, path)
 
 			continue
 
@@ -117,6 +140,8 @@ CommandMode:
 				if err != nil {
 					println(err)
 				}
+
+				autoGit(&gitcouter, path)
 
 				continue
 			}
@@ -150,4 +175,24 @@ func printHelp() {
 	}
 
 	print("Input Cmd $ ")
+}
+
+func lasyGit(execPath string) {
+	var lasyGitShell = execPath + "/lazyGit.sh"
+	var commitStr = "'Auto Commit Change On :" + time.Now().Format("2006-01-02 15:04:05"+"'")
+	err := kb.Exec("sh", lasyGitShell, commitStr)
+
+	if err != nil {
+		println(err)
+	}
+}
+
+func autoGit(gitcouter *int, execPath string) {
+
+	if *gitcouter > autoGitCounter {
+		*gitcouter = 1
+		lasyGit(execPath)
+	}
+
+	*gitcouter++
 }

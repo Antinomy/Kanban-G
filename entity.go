@@ -24,6 +24,7 @@ const (
 	CHANGETASK CmdType = "CHANGETASK"
 	SHORTMODE  CmdType = "SHORTMODE"
 	OPEN       CmdType = "OPEN"
+	GIT        CmdType = "GIT"
 
 	UNKNOWN CmdType = "UNKNOWN"
 )
@@ -84,6 +85,9 @@ func buildCmd(cmdstr string) Cmds {
 
 	case "open", "o":
 		result.cmdType = OPEN
+
+	case "git", "g":
+		result.cmdType = GIT
 
 	default:
 		result.cmdType = UNKNOWN
