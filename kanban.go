@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const autoGitCounter int = 3
+const autoGitCounter int = 7
 
 func main() {
 
@@ -67,7 +67,7 @@ CommandMode:
 		case REKAN:
 			kanban = kb.BuildKanban(path)
 			kanban.IsShortMode = IsShortMode
-			refreshScreen(kanban, kt.UNKNOWN)
+			refreshScreen(kanban, usingTaskItem)
 
 			autoGit(&gitcouter, path)
 
@@ -179,8 +179,8 @@ func printHelp() {
 
 func lasyGit(execPath string) {
 	var lasyGitShell = execPath + "/lazyGit.sh"
-	var commitStr = "'Git Sync On : [" + time.Now().Format("2006-01-02 15:04:05"+"]'")
-	err := kb.Exec("/bin/bash", "-c", lasyGitShell+" "+commitStr)
+	var commitStr = "GitSyncOn:[" + time.Now().Format("2006-01-02 15:04:05"+"]")
+	err := kb.Exec(lasyGitShell, commitStr)
 
 	if err != nil {
 		println(err)
@@ -191,7 +191,7 @@ func autoGit(gitcouter *int, execPath string) {
 
 	if *gitcouter > autoGitCounter {
 		*gitcouter = 1
-		lasyGit(execPath)
+		go lasyGit(execPath)
 	}
 
 	*gitcouter++
