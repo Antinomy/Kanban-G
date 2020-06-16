@@ -67,10 +67,10 @@ CommandMode:
 		case REKAN:
 			kanban = kb.BuildKanban(path)
 			kanban.IsShortMode = IsShortMode
-			refreshScreen(kanban, usingTaskItem)
 
 			autoGit(&gitcouter, path)
 
+			refreshScreen(kanban, usingTaskItem)
 			continue
 
 		case KAN:
@@ -188,6 +188,8 @@ func lasyGit(execPath string) {
 }
 
 func autoGit(gitcouter *int, execPath string) {
+
+	println("GitCouter : ", *gitcouter)
 
 	if *gitcouter > autoGitCounter {
 		*gitcouter = 1
