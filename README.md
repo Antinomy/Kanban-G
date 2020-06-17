@@ -56,3 +56,6 @@ c ZZ-H-ProjectZ-9999-doSth.md t
  e.g  
  open t1
  o t2
+
+# commit & push to git
+ Input Cmd $ git / g 

@@ -13,7 +13,7 @@ import (
 
 const autoGitCounter int = 5
 
-var gitcouter int = 1
+var gitcouter int = 0
 
 func main() {
 
@@ -55,13 +55,13 @@ CommandMode:
 				println(err)
 			}
 
-			autoGit(&gitcouter, path)
+			autoGit(path)
 
 			continue
 
 		case GIT:
 			lasyGit(path)
-
+			gitcouter = 0
 			continue
 
 		case REKAN:
@@ -70,7 +70,7 @@ CommandMode:
 
 			refreshScreen(kanban, usingTaskItem)
 
-			autoGit(&gitcouter, path)
+			autoGit(path)
 			continue
 
 		case KAN:
@@ -180,12 +180,13 @@ func lasyGit(execPath string) {
 	}
 }
 
-func autoGit(gitcouter *int, execPath string) {
+func autoGit(execPath string) {
 
-	if *gitcouter >= autoGitCounter {
-		*gitcouter = 1
+	if gitcouter >= autoGitCounter {
+		gitcouter = 0
 		go lasyGit(execPath)
+		return
 	}
 
-	*gitcouter++
+	gitcouter++
 }
