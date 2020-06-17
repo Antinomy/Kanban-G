@@ -11,7 +11,9 @@ import (
 	"time"
 )
 
-const autoGitCounter int = 7
+const autoGitCounter int = 5
+
+var gitcouter int = 1
 
 func main() {
 
@@ -25,8 +27,6 @@ func main() {
 	input := bufio.NewScanner(os.Stdin)
 
 	var IsShortMode bool = false
-
-	var gitcouter int = 1
 
 CommandMode:
 	for input.Scan() {
@@ -68,9 +68,9 @@ CommandMode:
 			kanban = kb.BuildKanban(path)
 			kanban.IsShortMode = IsShortMode
 
-			autoGit(&gitcouter, path)
-
 			refreshScreen(kanban, usingTaskItem)
+
+			autoGit(&gitcouter, path)
 			continue
 
 		case KAN:
@@ -87,8 +87,6 @@ CommandMode:
 			}
 			kb.CreateBanTask(kanban, task, banPrefix)
 
-			autoGit(&gitcouter, path)
-
 			continue
 
 		case CHANGETASK:
@@ -103,8 +101,6 @@ CommandMode:
 				println(err)
 			}
 
-			autoGit(&gitcouter, path)
-
 			continue
 
 		case CHANGEBAN:
@@ -117,8 +113,6 @@ CommandMode:
 			if err != nil {
 				println(err)
 			}
-
-			autoGit(&gitcouter, path)
 
 			continue
 
@@ -141,8 +135,6 @@ CommandMode:
 					println(err)
 				}
 
-				autoGit(&gitcouter, path)
-
 				continue
 			}
 
@@ -155,6 +147,7 @@ CommandMode:
 func refreshScreen(kanban ban.Kanban, item kt.TaskItem) {
 	//	clear screen
 	println("\033[H\033[2J")
+	println("AutoGit  :", gitcouter, "/", autoGitCounter)
 	kb.Kan(kanban, item)
 	print("Input Cmd $ ")
 
@@ -189,9 +182,7 @@ func lasyGit(execPath string) {
 
 func autoGit(gitcouter *int, execPath string) {
 
-	println("GitCouter : ", *gitcouter)
-
-	if *gitcouter > autoGitCounter {
+	if *gitcouter >= autoGitCounter {
 		*gitcouter = 1
 		go lasyGit(execPath)
 	}
