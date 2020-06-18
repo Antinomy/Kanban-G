@@ -17,21 +17,21 @@ const autoGitCounter int = 5
 
 var gitcouter int = 0
 
+var path string
+var kanban kb.Kanban
+var usingTaskItem kt.TaskItem = kt.UNKNOWN
+
+// default
+var IsShortMode bool = false
+
 func main() {
 
-	var path = os.Args[1]
-	var kanban kb.Kanban = kb.BuildKanban(path)
+	path = os.Args[1]
 
-	refreshScreen(kanban, kt.UNKNOWN)
-
-	var usingTaskItem kt.TaskItem = kt.UNKNOWN
-
-	var IsShortMode bool = false
+	refreshKanBan()
 
 CommandMode:
 	for {
-		// default
-		kanban.IsShortMode = IsShortMode
 
 		t := prompt.Input("InputCmd $", completer)
 
@@ -67,18 +67,13 @@ CommandMode:
 			continue
 
 		case REKAN:
-			kanban = kb.BuildKanban(path)
-			kanban.IsShortMode = IsShortMode
-
-			refreshScreen(kanban, usingTaskItem)
-
-			autoGit(path)
+			refreshKanBan()
 			continue
 
 		case KAN:
 			var taskItem kt.TaskItem = kt.GetTaskItem(cmds.param1)
 			usingTaskItem = taskItem
-			refreshScreen(kanban, usingTaskItem)
+			refreshKanView(kanban, usingTaskItem)
 			continue
 
 		case CREATE:
@@ -89,6 +84,7 @@ CommandMode:
 			}
 			kb.CreateBanTask(kanban, task, banPrefix)
 
+			refreshKanBan()
 			continue
 
 		case CHANGETASK:
@@ -103,6 +99,7 @@ CommandMode:
 				println(err)
 			}
 
+			refreshKanBan()
 			continue
 
 		case CHANGEBAN:
@@ -116,6 +113,7 @@ CommandMode:
 				println(err)
 			}
 
+			refreshKanBan()
 			continue
 
 		default:
@@ -137,6 +135,7 @@ CommandMode:
 					println(err)
 				}
 
+				refreshKanBan()
 				continue
 			}
 
@@ -146,7 +145,16 @@ CommandMode:
 
 }
 
-func refreshScreen(kanban ban.Kanban, item kt.TaskItem) {
+func refreshKanBan() {
+	kanban = kb.BuildKanban(path)
+	kanban.IsShortMode = IsShortMode
+
+	refreshKanView(kanban, usingTaskItem)
+
+	autoGit(path)
+}
+
+func refreshKanView(kanban ban.Kanban, item kt.TaskItem) {
 	//	clear screen
 	println("\033[H\033[2J")
 	println("AutoGit  :", gitcouter, "/", autoGitCounter)
