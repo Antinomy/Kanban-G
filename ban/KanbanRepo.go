@@ -1,7 +1,6 @@
 package ban
 
 import (
-	"fmt"
 	kc "kanban/conf"
 	kt "kanban/task"
 	"strconv"
@@ -18,13 +17,13 @@ func readCorrectTasks(filesList []string, key string) []kt.Task {
 
 			task := ts.CreateTask(fileName)
 			task.Key = key + strconv.Itoa(index)
-			fmt.Println("TaskCreated", task)
+			// fmt.Println("TaskCreated", task)
 			result = append(result, task)
 			index++
 		}
 	}
 
-	fmt.Println("Validated Task Num", len(result))
+	// fmt.Println("Validated Task Num", len(result))
 
 	return result
 }

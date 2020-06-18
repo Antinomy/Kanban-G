@@ -84,7 +84,7 @@ CommandMode:
 			}
 			kb.CreateBanTask(kanban, task, banPrefix)
 
-			refreshKanBan()
+			// refreshKanBan()
 			continue
 
 		case CHANGETASK:
@@ -99,7 +99,7 @@ CommandMode:
 				println(err)
 			}
 
-			refreshKanBan()
+			// refreshKanBan()
 			continue
 
 		case CHANGEBAN:
@@ -113,7 +113,7 @@ CommandMode:
 				println(err)
 			}
 
-			refreshKanBan()
+			// refreshKanBan()
 			continue
 
 		default:
@@ -135,7 +135,7 @@ CommandMode:
 					println(err)
 				}
 
-				refreshKanBan()
+				// refreshKanBan()
 				continue
 			}
 
