@@ -9,6 +9,8 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/c-bata/go-prompt"
 )
 
 const autoGitCounter int = 5
@@ -24,16 +26,16 @@ func main() {
 
 	var usingTaskItem kt.TaskItem = kt.UNKNOWN
 
-	input := bufio.NewScanner(os.Stdin)
-
 	var IsShortMode bool = false
 
 CommandMode:
-	for input.Scan() {
+	for {
 		// default
 		kanban.IsShortMode = IsShortMode
 
-		var cmds Cmds = buildCmd(input.Text())
+		t := prompt.Input("InputCmd $", completer)
+
+		var cmds Cmds = buildCmd(t)
 
 		switch cmds.cmdType {
 		case EXIT:
@@ -149,7 +151,6 @@ func refreshScreen(kanban ban.Kanban, item kt.TaskItem) {
 	println("\033[H\033[2J")
 	println("AutoGit  :", gitcouter, "/", autoGitCounter)
 	kb.Kan(kanban, item)
-	print("Input Cmd $ ")
 
 }
 
@@ -166,8 +167,6 @@ func printHelp() {
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}
-
-	print("Input Cmd $ ")
 }
 
 func lasyGit(execPath string) {
@@ -189,4 +188,20 @@ func autoGit(execPath string) {
 	}
 
 	gitcouter++
+}
+
+func completer(d prompt.Document) []prompt.Suggest {
+	suggest := []prompt.Suggest{
+		{Text: "h [help]", Description: "help doc"},
+		{Text: "e [exit]", Description: "exit kanban"},
+		{Text: "k [kan]", Description: "k [kan] <i[priority] / o[owner] / j[project] /d[deadline]>"},
+		{Text: "r [rekan]", Description: "refresh kanban"},
+		{Text: "o [open]", Description: "c [create] <taskKey> "},
+		{Text: "s [short / shortmode]", Description: "short mode turn on/off"},
+		{Text: "ct [changetask]", Description: "ct [changetask] <taskKey> <TaskItem> context"},
+		{Text: "cb [changeban]", Description: "cb [changeban] <taskKey> <banPrefix> "},
+		{Text: "c [create]", Description: "c [create] taskname <banPrefix> "},
+		{Text: "g [git]", Description: "commit & push to git "},
+	}
+	return prompt.FilterHasPrefix(suggest, d.GetWordBeforeCursor(), true)
 }
