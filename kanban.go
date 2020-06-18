@@ -196,11 +196,11 @@ func completer(d prompt.Document) []prompt.Suggest {
 		{Text: "e [exit]", Description: "exit kanban"},
 		{Text: "k [kan]", Description: "k [kan] <i[priority] / o[owner] / j[project] /d[deadline]>"},
 		{Text: "r [rekan]", Description: "refresh kanban"},
-		{Text: "o [open]", Description: "c [create] <taskKey> "},
+		{Text: "o [open]", Description: "c [create] $taskKey "},
 		{Text: "s [short / shortmode]", Description: "short mode turn on/off"},
-		{Text: "ct [changetask]", Description: "ct [changetask] <taskKey> <TaskItem> context"},
-		{Text: "cb [changeban]", Description: "cb [changeban] <taskKey> <banPrefix> "},
-		{Text: "c [create]", Description: "c [create] taskname <banPrefix> "},
+		{Text: "ct [changetask]", Description: "ct [changetask] $taskKey $TaskItem context"},
+		{Text: "cb [changeban]", Description: "cb [changeban] $taskKey $banPrefix "},
+		{Text: "c [create]", Description: "c [create] taskname $banPrefix  "},
 		{Text: "g [git]", Description: "commit & push to git "},
 	}
 	return prompt.FilterHasPrefix(suggest, d.GetWordBeforeCursor(), true)
