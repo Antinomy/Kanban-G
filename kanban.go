@@ -8,6 +8,7 @@ import (
 	kt "kanban/task"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/c-bata/go-prompt"
@@ -30,12 +31,19 @@ func main() {
 
 	refreshKanBan()
 
+	kanbanPrompt := prompt.New(
+		dummyExecutor,
+		completer,
+		prompt.OptionPrefix("InputCmd $"),
+		prompt.OptionHistory([]string{"exit", "help"}),
+		prompt.OptionPrefixTextColor(prompt.Yellow),
+	)
+
 CommandMode:
 	for {
-
-		t := prompt.Input("InputCmd $", completer)
-
-		var cmds Cmds = buildCmd(t)
+		inputCmd := kanbanPrompt.Input()
+		inputCmd = strings.TrimLeft(inputCmd, " ")
+		var cmds Cmds = buildCmd(inputCmd)
 
 		switch cmds.cmdType {
 		case EXIT:
@@ -202,14 +210,20 @@ func completer(d prompt.Document) []prompt.Suggest {
 	suggest := []prompt.Suggest{
 		{Text: "h [help]", Description: "help doc"},
 		{Text: "e [exit]", Description: "exit kanban"},
-		{Text: "k [kan]", Description: "k [kan] <i[priority] / o[owner] / j[project] /d[deadline]>"},
+		{Text: "k [kan]", Description: "k [kan] <i / o / j / d>"},
+		{Text: "k i", Description: "priority"},
+		{Text: "k o", Description: "owner"},
+		{Text: "k j", Description: "project"},
+		{Text: "k d", Description: "deadline"},
 		{Text: "r [rekan]", Description: "refresh kanban"},
 		{Text: "o [open]", Description: "c [create] $taskKey "},
 		{Text: "s [short / shortmode]", Description: "short mode turn on/off"},
+		{Text: "c [create]", Description: "c [create] taskname $banPrefix  "},
 		{Text: "ct [changetask]", Description: "ct [changetask] $taskKey $TaskItem context"},
 		{Text: "cb [changeban]", Description: "cb [changeban] $taskKey $banPrefix "},
-		{Text: "c [create]", Description: "c [create] taskname $banPrefix  "},
 		{Text: "g [git]", Description: "commit & push to git "},
 	}
 	return prompt.FilterHasPrefix(suggest, d.GetWordBeforeCursor(), true)
 }
+
+func dummyExecutor(in string) {}
