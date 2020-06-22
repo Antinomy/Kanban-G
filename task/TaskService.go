@@ -56,7 +56,7 @@ func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 	}
 
 	if changingTask.ChangeItem == PROJECT {
-		result.Deadline = changingTask.ChangeContent
+		result.Project = changingTask.ChangeContent
 	}
 
 	if changingTask.ChangeItem == DEADLINE {

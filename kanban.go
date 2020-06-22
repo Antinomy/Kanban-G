@@ -208,20 +208,20 @@ func autoGit(execPath string) {
 
 func completer(d prompt.Document) []prompt.Suggest {
 	suggest := []prompt.Suggest{
-		{Text: "h [help]", Description: "help doc"},
-		{Text: "e [exit]", Description: "exit kanban"},
-		{Text: "k [kan]", Description: "k [kan] <i / o / j / d>"},
+		{Text: "o [open]", Description: "o [open] $taskKey "},
+		{Text: "s [short / shortmode]", Description: "short mode turn on/off"},
+		{Text: "c [create]", Description: "c [create] taskname $banPrefix  "},
+		{Text: "g [git]", Description: "commit & push to git "},
+		{Text: "ct [changetask]", Description: "ct [changetask] $taskKey $TaskItem context"},
+		{Text: "cb [changeban]", Description: "cb [changeban] $taskKey $banPrefix "},
 		{Text: "k i", Description: "priority"},
 		{Text: "k o", Description: "owner"},
 		{Text: "k j", Description: "project"},
 		{Text: "k d", Description: "deadline"},
+		{Text: "h [help]", Description: "help doc"},
+		{Text: "e [exit]", Description: "exit kanban"},
+		{Text: "k [kan]", Description: "k [kan] <i / o / j / d>"},
 		{Text: "r [rekan]", Description: "refresh kanban"},
-		{Text: "o [open]", Description: "c [create] $taskKey "},
-		{Text: "s [short / shortmode]", Description: "short mode turn on/off"},
-		{Text: "c [create]", Description: "c [create] taskname $banPrefix  "},
-		{Text: "ct [changetask]", Description: "ct [changetask] $taskKey $TaskItem context"},
-		{Text: "cb [changeban]", Description: "cb [changeban] $taskKey $banPrefix "},
-		{Text: "g [git]", Description: "commit & push to git "},
 	}
 	return prompt.FilterHasPrefix(suggest, d.GetWordBeforeCursor(), true)
 }

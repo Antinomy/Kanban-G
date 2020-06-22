@@ -27,24 +27,24 @@ func Kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	// Create an object from 2D interface array
 
-	t := gotabulate.Create(kanSpec.rows)
+	table := gotabulate.Create(kanSpec.rows)
 
-	t.SetHeaders(kanSpec.hearders)
+	table.SetHeaders(kanSpec.hearders)
 
 	// Set the Empty String (optional)
 	// t.SetEmptyString("")
 
 	// Set Align (Optional)
-	t.SetAlign("left")
+	table.SetAlign("left")
 
 	// Set Max Cell Size
-	t.SetMaxCellSize(kanSpec.maxCellSize)
+	table.SetMaxCellSize(kanSpec.maxCellSize)
 
 	// Turn On String Wrapping
-	t.SetWrapStrings(true)
+	table.SetWrapStrings(true)
 
 	// Print the result: grid, or simple
-	fmt.Println(t.Render("grid"))
+	fmt.Println(table.Render("grid"))
 
 }
 
