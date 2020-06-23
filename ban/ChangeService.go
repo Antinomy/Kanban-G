@@ -97,23 +97,25 @@ func OpenTask(kanban Kanban, taskKey string, taskItem kt.TaskItem) error {
 		fmt.Println("EXECUTE COMMAND ERROR : " + err.Error())
 	}
 
-	fmt.Println("EXECUTE COMMAND END")
+	// fmt.Println("EXECUTE COMMAND END")
 	return err
 }
 
-func Exec(name string, arg ...string) error {
+func Exec(name string, arg ...string) (string, error) {
 
 	fmt.Println(name)
-	fmt.Println(arg)
+	// fmt.Println(arg)
 
 	cmd := exec.Command(name, arg...)
 	cmd.Env = os.Environ()
 
-	err := cmd.Run()
+	out, err := cmd.Output()
 	if err != nil {
 		fmt.Println("EXECUTE COMMAND ERROR : " + err.Error())
 	}
 
-	fmt.Println("EXECUTE COMMAND END")
-	return err
+	// fmt.Println("EXECUTE COMMAND END")
+	var result string = string(out)
+
+	return result, err
 }

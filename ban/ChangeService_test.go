@@ -1,8 +1,10 @@
 package ban
 
 import (
+	"fmt"
 	kt "kanban/task"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -133,5 +135,16 @@ func TestOpenTask(t *testing.T) {
 		t.Log(err)
 		t.Errorf("Failed")
 	}
+
+}
+
+func TestExec(t *testing.T) {
+	out, err := Exec(".././unittest/myTasks/countGit.sh")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	out = strings.Trim(out, "\n")
+	println(out)
 
 }

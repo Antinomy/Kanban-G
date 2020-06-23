@@ -8,13 +8,14 @@ import (
 	kt "kanban/task"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/c-bata/go-prompt"
 )
 
-const autoGitCounter int = 5
+const autoGitCounter int = 3
 
 var gitcouter int = 0
 
@@ -188,14 +189,38 @@ func printHelp() {
 func lasyGit(execPath string) {
 	var lasyGitShell = execPath + "/lazyGit.sh"
 	var commitStr = "GitSyncOn:[" + time.Now().Format("2006-01-02 15:04:05"+"]")
-	err := kb.Exec(lasyGitShell, commitStr)
+	_, err := kb.Exec(lasyGitShell, commitStr)
 
 	if err != nil {
 		println(err)
 	}
 }
 
+func countGit(execPath string) string {
+	var countGitShell = execPath + "/countGit.sh"
+
+	out, err := kb.Exec(countGitShell)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return out
+}
+
 func autoGit(execPath string) {
+
+	var countResult = countGit(execPath)
+
+	countResult = strings.Trim(countResult, "\n")
+	countResult = strings.TrimSpace(countResult)
+
+	changeFileNum, err := strconv.Atoi(countResult)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	gitcouter = changeFileNum
 
 	if gitcouter >= autoGitCounter {
 		gitcouter = 0
@@ -203,7 +228,7 @@ func autoGit(execPath string) {
 		return
 	}
 
-	gitcouter++
+	// gitcouter++
 }
 
 func completer(d prompt.Document) []prompt.Suggest {
