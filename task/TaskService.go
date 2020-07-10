@@ -63,6 +63,10 @@ func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 		result.Deadline = changingTask.ChangeContent
 	}
 
+	if changingTask.ChangeItem == TITTLE {
+		result.Tittle = changingTask.ChangeContent
+	}
+
 	result.FullName = result.Owner + "-" + result.Priority + "-" + result.Project + "-" + result.Deadline + "-" + result.Tittle
 
 	return result

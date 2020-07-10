@@ -48,6 +48,9 @@ func GetTaskItem(itemTypeStr string) TaskItem {
 	case "PROJECT", "PRJ", "PJ", "J":
 		return PROJECT
 
+	case "TITTLE", "TIT", "T":
+		return TITTLE
+
 	default:
 		return UNKNOWN
 	}
