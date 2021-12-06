@@ -1,3 +1,10 @@
+# Overview
+kanban-G is cmd tool to implment kanban in terminal.
+
+It is base markdown file which name by some rule , it is simple and easy to version control by git.
+
+it is looks like this in terminal:
+
 
 # exit                 | InputCmd $ e [exit]
 # relaod               | InputCmd $ r [rekan]
