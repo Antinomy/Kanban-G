@@ -216,13 +216,15 @@ it had conditions:
 just a way to open md file by your editor 
 
 using cmd:
-'''shell
+
+```shell
 InputCmd $ o [open] $taskKey
 
- e.g  
+e.g  
+
 InputCmd $ open t1
 InputCmd $ o t2
-'''
+```
 
 It had conditions:
 1. it only tested on osx env.
