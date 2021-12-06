@@ -60,13 +60,8 @@ CommandMode:
 			continue
 
 		case OPEN:
-			err := kb.OpenTask(kanban, cmds.param1, usingTaskItem)
 
-			if err != nil {
-				println(err)
-			}
-
-			autoGit(path)
+			go openTask(cmds.param1)
 
 			continue
 
@@ -252,3 +247,15 @@ func completer(d prompt.Document) []prompt.Suggest {
 }
 
 func dummyExecutor(in string) {}
+
+func openTask(taskKey string) {
+	err := kb.OpenTask(kanban, taskKey, usingTaskItem)
+
+	if err != nil {
+		println(err)
+	}
+
+	autoGit(path)
+
+	refreshKanBan()
+}
