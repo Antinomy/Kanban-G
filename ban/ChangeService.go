@@ -103,7 +103,7 @@ func OpenTask(kanban Kanban, taskKey string, taskItem kt.TaskItem) error {
 
 func Exec(name string, arg ...string) (string, error) {
 
-	fmt.Println(name)
+	// fmt.Println(name)
 	// fmt.Println(arg)
 
 	cmd := exec.Command(name, arg...)
