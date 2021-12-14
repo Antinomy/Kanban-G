@@ -47,8 +47,6 @@ CommandMode:
 		var cmds Cmds = buildCmd(inputCmd)
 
 		switch cmds.cmdType {
-		case EXIT:
-			break CommandMode
 
 		case SHORTMODE:
 			IsShortMode = !IsShortMode
@@ -119,6 +117,10 @@ CommandMode:
 
 			// refreshKanBan()
 			continue
+
+		case EXIT:
+			println("bye bye~")
+			break CommandMode
 
 		default:
 			// change ban by ban key
