@@ -81,11 +81,29 @@ func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
 	if len(task.Key) != 0 {
 		prefix = "[" + task.Key + "] "
 	}
-
 	result = prefix + result
 
 	if taskItem == UNKNOWN {
+		return result
+	}
 
+	if taskItem == OWNER {
+		result = prefix + task.Priority + "-" + task.Project + "-" + task.Deadline + "-" + task.Tittle
+		return result
+	}
+
+	if taskItem == PRIORITY {
+		result = prefix + task.Owner + "-" + task.Project + "-" + task.Deadline + "-" + task.Tittle
+		return result
+	}
+
+	if taskItem == PROJECT {
+		result = prefix + task.Owner + "-" + task.Priority + "-" + task.Deadline + "-" + task.Tittle
+		return result
+	}
+
+	if taskItem == DEADLINE {
+		result = prefix + task.Owner + "-" + task.Priority + "-" + task.Project + "-" + task.Tittle
 		return result
 	}
 

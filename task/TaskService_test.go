@@ -125,6 +125,30 @@ func TestGetTaskDesc(t *testing.T) {
 		t.Log(result)
 		t.Errorf("Failed")
 	}
+
+	result = taskService.GetTaskDesc(task1, OWNER)
+	if result != "[t1] M-ProjectA-20200512-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+
+	result = taskService.GetTaskDesc(task1, PRIORITY)
+	if result != "[t1] AY-ProjectA-20200512-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+
+	result = taskService.GetTaskDesc(task1, PROJECT)
+	if result != "[t1] AY-M-20200512-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
+
+	result = taskService.GetTaskDesc(task1, DEADLINE)
+	if result != "[t1] AY-M-ProjectA-WriteKanbanCode.md" {
+		t.Log(result)
+		t.Errorf("Failed")
+	}
 }
 
 func TestFillBlank(t *testing.T) {
