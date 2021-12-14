@@ -1,0 +1,35 @@
+{
+    "BanSize": 5,
+    "BanConfigs": [
+        {
+            "Name": "Talk",
+            "Folder": "01-Talk",
+            "SupportShortMode": false,
+            "Prefix": "t"
+        },
+        {
+            "Name": "Prepare",
+            "Folder": "02-Prepare",
+            "SupportShortMode": false,
+            "Prefix": "p"
+        },
+        {
+            "Name": "Interview",
+            "Folder": "03-Interview",
+            "SupportShortMode": false,
+            "Prefix": "i"
+        },
+        {
+            "Name": "Ignore",
+            "Folder": "04-Ignore",
+            "SupportShortMode": true,
+            "Prefix": "ng"
+        },
+        {
+            "Name": "End",
+            "Folder": "05-End",
+            "SupportShortMode": true,
+            "Prefix": "d"
+        }
+    ]
+}

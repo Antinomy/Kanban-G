@@ -30,7 +30,7 @@ func readCorrectTasks(filesList []string, key string) []kt.Task {
 
 func BuildKanban(folderPath string) Kanban {
 
-	var config kc.Jconf = loadConfig()
+	var config kc.Jconf = loadConfig(folderPath)
 
 	var banconfigs []kc.BanConfig = config.BanConfigs
 

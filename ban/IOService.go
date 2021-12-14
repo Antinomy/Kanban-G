@@ -28,14 +28,21 @@ func readFileList(folderPath string) []string {
 	return result
 }
 
-func loadConfig() kc.Jconf {
+func loadConfig(folderPath string) kc.Jconf {
 	var configPath = ".././conf/conf.json"
 
-	_, err := os.Stat(configPath)
+	var confPath = folderPath + "/conf.json"
+	_, err := os.Stat(confPath)
 	if os.IsNotExist(err) {
-		configPath = "./conf/conf.json"
+		configPath = confPath
+	} else {
+		_, err1 := os.Stat(configPath)
+		if os.IsNotExist(err1) {
+			configPath = "./conf/conf.json"
+		}
 	}
-
+	configPath = confPath
+	println("loading config: " + configPath)
 	var config kc.Jconf = readJsonConfig(configPath)
 
 	return config
