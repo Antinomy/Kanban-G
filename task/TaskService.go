@@ -103,7 +103,14 @@ func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
 	}
 
 	if taskItem == DEADLINE {
-		result = prefix + task.Owner + "-" + task.Priority + "-" + task.Project + "-" + task.Tittle
+		var dateLen = len(task.Deadline)
+		shortDate := task.Deadline
+
+		if dateLen > 2 {
+			shortDate = shortDate[dateLen-2 : dateLen]
+		}
+
+		result = prefix + task.Owner + "-" + task.Priority + "-" + task.Project + "-" + shortDate + "-" + task.Tittle
 		return result
 	}
 

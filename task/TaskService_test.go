@@ -145,7 +145,7 @@ func TestGetTaskDesc(t *testing.T) {
 	}
 
 	result = taskService.GetTaskDesc(task1, DEADLINE)
-	if result != "[t1] AY-M-ProjectA-WriteKanbanCode.md" {
+	if result != "[t1] AY-M-ProjectA-12-WriteKanbanCode.md" {
 		t.Log(result)
 		t.Errorf("Failed")
 	}
