@@ -20,7 +20,7 @@ func TestReadDir(t *testing.T) {
 }
 
 func TestReadConfig(t *testing.T) {
-	var config kc.Jconf = loadConfig()
+	var config kc.Jconf = loadConfig("nil")
 
 	var banconfigs []kc.BanConfig = config.BanConfigs
 

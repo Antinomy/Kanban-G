@@ -31,7 +31,7 @@ func readFileList(folderPath string) []string {
 
 func existFile(filePath string) bool {
 
-	println("checking path: " + filePath)
+	// println("checking path: " + filePath)
 
 	if _, err := os.Stat(filePath); err == nil {
 		// path/to/whatever exists

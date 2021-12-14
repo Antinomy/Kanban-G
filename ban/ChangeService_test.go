@@ -54,7 +54,7 @@ func TestChange(t *testing.T) {
 
 	// target file 03-Hold/ZZ-H-ProjectZ-2020-doSth.md
 	// change ban to 02-Doing
-	var changeSpec ChangeSpec = ChangeBan(kanban, kt.OWNER, "h2", "i")
+	var changeSpec ChangeSpec = ChangeBan(kanban, kt.OWNER, "ho1", "i")
 
 	var err = ChangeOne(folderPath, changeSpec)
 
@@ -66,7 +66,7 @@ func TestChange(t *testing.T) {
 	kanban = BuildKanban(folderPath)
 
 	// change ban back to 03-Hold
-	changeSpec = ChangeBan(kanban, kt.OWNER, "i4", "h")
+	changeSpec = ChangeBan(kanban, kt.OWNER, "i4", "ho")
 
 	err = ChangeOne(folderPath, changeSpec)
 
@@ -78,7 +78,7 @@ func TestChange(t *testing.T) {
 	kanban = BuildKanban(folderPath)
 
 	// change task owner to AY
-	changeSpec = ChangeTask(kanban, kt.OWNER, "h2", "o", "AY")
+	changeSpec = ChangeTask(kanban, kt.OWNER, "ho1", "o", "AY")
 	err = ChangeOne(folderPath, changeSpec)
 
 	if err != nil {
@@ -89,7 +89,7 @@ func TestChange(t *testing.T) {
 	kanban = BuildKanban(folderPath)
 
 	// change task owner back to ZZ
-	changeSpec = ChangeTask(kanban, kt.OWNER, "h2", "o", "ZZ")
+	changeSpec = ChangeTask(kanban, kt.OWNER, "ho1", "o", "ZZ")
 	err = ChangeOne(folderPath, changeSpec)
 
 	if err != nil {
