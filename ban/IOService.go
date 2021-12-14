@@ -2,6 +2,7 @@ package ban
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	kc "kanban/conf"
@@ -28,23 +29,45 @@ func readFileList(folderPath string) []string {
 	return result
 }
 
-func loadConfig(folderPath string) kc.Jconf {
+func existFile(filePath string) bool {
+
+	println("checking path: " + filePath)
+
+	if _, err := os.Stat(filePath); err == nil {
+		// path/to/whatever exists
+		return true
+	} else if errors.Is(err, os.ErrNotExist) {
+		// path/to/whatever does *not* exist
+		return false
+	} else {
+		println(err)
+	}
+
+	return false
+}
+
+func findConfPath(folderPath string) string {
 	var configPath = ".././conf/conf.json"
 
-	var confPath = folderPath + "/conf.json"
-	_, err := os.Stat(confPath)
-	if os.IsNotExist(err) {
-		configPath = confPath
-	} else {
-		_, err1 := os.Stat(configPath)
-		if os.IsNotExist(err1) {
-			configPath = "./conf/conf.json"
-		}
+	var banConfPath = folderPath + "/conf.json"
+	if existFile(banConfPath) {
+		return banConfPath
 	}
-	configPath = confPath
-	println("loading config: " + configPath)
-	var config kc.Jconf = readJsonConfig(configPath)
 
+	if existFile(configPath) {
+		return configPath
+	}
+
+	configPath = "./conf/conf.json"
+	return configPath
+}
+
+func loadConfig(folderPath string) kc.Jconf {
+
+	var configPath = findConfPath(folderPath)
+	println("loading config: " + configPath)
+
+	var config kc.Jconf = readJsonConfig(configPath)
 	return config
 }
 
