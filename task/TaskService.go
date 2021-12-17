@@ -9,7 +9,7 @@ type TaskService interface {
 	CreateTask(taskName string) Task
 	IsATask(taskName string) bool
 	ChangeTask(changingTask ToChangeTask) Task
-	GetTaskDesc(task Task, taskItem TaskItem) string
+	GetTaskDesc(task Task, taskItem TaskItem, isShortMode bool) string
 	FillBlank(taskDesc string, maxSize int) string
 }
 
@@ -72,7 +72,7 @@ func (t *FileWay) ChangeTask(changingTask ToChangeTask) Task {
 	return result
 }
 
-func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
+func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem, isShortMode bool) string {
 
 	var result string = task.FullName
 
@@ -82,6 +82,10 @@ func (t *FileWay) GetTaskDesc(task Task, taskItem TaskItem) string {
 		prefix = "[" + task.Key + "] "
 	}
 	result = prefix + result
+
+	if !isShortMode {
+		return result
+	}
 
 	if taskItem == UNKNOWN {
 		return result

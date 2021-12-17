@@ -24,6 +24,9 @@ func Kan(kanban Kanban, taskItem kt.TaskItem) {
 
 	println(viewType)
 	println(today)
+	if kanban.IsShortMode {
+		println("ShortMode:", kanban.IsShortMode)
+	}
 
 	// Create an object from 2D interface array
 
@@ -70,7 +73,7 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 
 			var cell string
 			for _, tk := range ban.tasks {
-				var taskDesc = ts.GetTaskDesc(tk, taskItem)
+				var taskDesc = ts.GetTaskDesc(tk, taskItem, kanban.IsShortMode)
 				taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
 				cell += taskDesc
 				banMap[tk.Key] = ban
@@ -125,7 +128,7 @@ func getKanSpec(kanban Kanban, taskItem kt.TaskItem) KanSpec {
 				var isDeadlineCase bool = (rowName == getDeadlineType(tk.Deadline) && taskItem == kt.DEADLINE)
 
 				if isOwnerCase || isPriorityCase || isProjectCase || isDeadlineCase {
-					var taskDesc = ts.GetTaskDesc(tk, taskItem)
+					var taskDesc = ts.GetTaskDesc(tk, taskItem, kanban.IsShortMode)
 					taskDesc = ts.FillBlank(taskDesc, result.maxCellSize)
 					cell += taskDesc
 				}
@@ -165,7 +168,7 @@ func calcInfo(result *KanSpec, kanban *Kanban, ts kt.TaskService, taskItem kt.Ta
 			result.projects = appendUnique(result.projects, tk.Project)
 			result.deadlineTypes = appendUnique(result.deadlineTypes, getDeadlineType(tk.Deadline))
 
-			var cellSize = len(ts.GetTaskDesc(tk, taskItem))
+			var cellSize = len(ts.GetTaskDesc(tk, taskItem, kanban.IsShortMode))
 
 			if maxCellSize < cellSize {
 				maxCellSize = cellSize
