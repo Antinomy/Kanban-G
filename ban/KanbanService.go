@@ -219,7 +219,8 @@ func getDeadlineType(deadline string) string {
 }
 
 func GetBan(kanban Kanban, banKey string) Ban {
-	var result Ban
+	// set default Ban
+	var result Ban = kanban.bans[0]
 
 	for _, ban := range kanban.bans {
 		if ban.prefix == banKey {
